@@ -8,12 +8,43 @@ designerApp.factory('DynamicTypes', ['$resource',
     }
 ]);
 
-designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', function ($scope, DynamicTypes) {
-    
-    $scope.selectedDynamicType = "";
+designerApp.factory('DynamicContents', ['$resource',
+    function ($resource) {
+        return $resource('/restapi/fixeddynamiccontent/dynamiccontents/:id', {}, {
+            query: { method: 'GET', isArray: true }
+        });
+    }
+]);
 
-    $scope.dynamicTypes = DynamicTypes.query();
+designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 
+    function ($scope, DynamicTypes, DynamicContents) {
     
+        $scope.selectedDynamicType = "";
+
+        $scope.dynamicTypes = DynamicTypes.query();
+    
+        $scope.allItems = [
+            {
+                Title: "Creating Responsive Sitefinity Navigation",
+                LastModified: "21.04.2013",
+                Author: "Joe Black",
+                CanonicalUrl : "http://www.yahoo.com"
+            },
+            {
+                Title: "Social Share for Sitefinity News List Items",
+                LastModified: "21.04.2013",
+                Author: "John Smith",
+                CanonicalUrl: "http://www.aol.com"
+            }
+        ];
+
+        $scope.$watch('selectedDynamicType', function () {
+            var typeId = $scope.selectedDynamicType.Id;
+            if (typeId.length == 0) return;
+
+            $scope.allItems = DynamicContents.query({ id: typeId });
+        });
+
 }]);
 
 Type.registerNamespace("Telerik.Sitefinity.FixedDynamicContentWidget");

@@ -3,9 +3,8 @@ using System.Linq;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
-    public class DynamicTypeResponse
+    public class DynamicContentRequest
     {
-        public string Title { get; set; }
-        public Guid Id { get; set; }
+        public string TypeId { get; set; }
     }
 }

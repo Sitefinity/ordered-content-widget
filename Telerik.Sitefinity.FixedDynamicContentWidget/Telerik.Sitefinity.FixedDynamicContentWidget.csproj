@@ -72,11 +72,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\Telerik.Sitefinity.Model.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Utilities, Version=6.2.4910.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\Telerik.Sitefinity.Utilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\FixedDynamicContentConfig.cs" />
     <Compile Include="Designer.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="Services\DynamicContentRequest.cs" />
+    <Compile Include="Services\DynamicContentResponse.cs" />
+    <Compile Include="Services\DynamicContentService.cs" />
     <Compile Include="Services\DynamicTypeRequest.cs" />
     <Compile Include="Services\DynamicTypeResponse.cs" />
     <Compile Include="Services\DynamicTypesService.cs" />

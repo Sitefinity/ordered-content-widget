@@ -24,6 +24,33 @@
         <select ng-model="selectedDynamicType" ng-options="t.Title for t in dynamicTypes">
             <option value="">-- choose content type --</option>
         </select>
+
+
+        <table style="width:500px;">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Modified on
+                    </th>
+                    <th>
+                        By
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in allItems">
+                    <td>{{ item.Title }}</td>
+                    <td>{{ item.LastModified }}</td>
+                    <td>{{ item.Author }}</td>
+                    <td><a href="{{ item.CanonicalUrl }}">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
     <div>
         2
