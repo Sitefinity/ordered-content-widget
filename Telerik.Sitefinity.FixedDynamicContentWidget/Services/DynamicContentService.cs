@@ -8,6 +8,7 @@ using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.GenericContent.Model;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
@@ -22,7 +23,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             var dynamicType = provider.GetDynamicModuleType(Guid.Parse(request.TypeId));
             var type = TypeResolutionService.ResolveType(dynamicType.GetFullTypeName());
 
-            var query = manager.GetDataItems(type);
+            var query = manager.GetDataItems(type).Where(di => di.Status == ContentLifecycleStatus.Live);
             foreach (DynamicContent item in query)
             {
                 dynamicContentList.Add(new DynamicContentResponse()
