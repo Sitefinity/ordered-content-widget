@@ -46,7 +46,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in allItems">
-                                <td><input type="checkbox" /></td>
+                                <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
                                 <td>{{ item.Title }}</td>
                                 <td>{{ item.LastModified }}</td>
                                 <td>{{ item.Author }}</td>
@@ -56,7 +56,29 @@
                     </table>
                 </div>
                 <div>
-                    Only selected...
+                    <table style="width: 500px;">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Title
+                                </th>
+                                <th>Modified on
+                                </th>
+                                <th>By
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in selectedItems">
+                                <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
+                                <td>{{ item.Title }}</td>
+                                <td>{{ item.LastModified }}</td>
+                                <td>{{ item.Author }}</td>
+                                <td><a href="{{ item.CanonicalUrl }}">View</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

@@ -18,6 +18,14 @@ designerApp.factory('DynamicContents', ['$resource',
 
 designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 
     function ($scope, DynamicTypes, DynamicContents) {
+
+        var findItem = function (id) {
+            for (var i = 0; i < $scope.allItems.length; i++) {
+                if ($scope.allItems[i].Id == id) {
+                    return $scope.allItems[i];
+                }
+            }
+        };
     
         $scope.selectedDynamicType = "";
 
@@ -25,9 +33,17 @@ designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicConten
     
         $scope.allItems = [];
 
+        $scope.selectedItems = [];
+
+        $scope.toggleSelect = function (id) {
+            var item = findItem(id);
+            debugger;
+            $scope.selectedItems.push(item);
+        };
+
         $scope.$watch('selectedDynamicType', function () {
             var typeId = $scope.selectedDynamicType.Id;
-            if (typeId.length == 0) return;
+            if (!(typeId && typeId.length > 0)) return;
 
             $scope.allItems = DynamicContents.query({ id: typeId });
         });

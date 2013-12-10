@@ -5,6 +5,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
     public class DynamicContentResponse
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public DateTime LastModified { get; set; }
         public string Author { get; set; }

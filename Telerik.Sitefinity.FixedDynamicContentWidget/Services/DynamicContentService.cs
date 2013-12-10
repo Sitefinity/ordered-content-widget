@@ -28,6 +28,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             {
                 dynamicContentList.Add(new DynamicContentResponse()
                 {
+                     Id = item.Id,
                      Title = item.GetValue<Lstring>(dynamicType.MainShortTextFieldName).Value,
                      Author = item.Author,
                      LastModified = item.LastModified,
