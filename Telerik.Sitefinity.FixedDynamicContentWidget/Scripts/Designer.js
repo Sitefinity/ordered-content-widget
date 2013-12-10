@@ -23,20 +23,7 @@ designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicConten
 
         $scope.dynamicTypes = DynamicTypes.query();
     
-        $scope.allItems = [
-            {
-                Title: "Creating Responsive Sitefinity Navigation",
-                LastModified: "21.04.2013",
-                Author: "Joe Black",
-                CanonicalUrl : "http://www.yahoo.com"
-            },
-            {
-                Title: "Social Share for Sitefinity News List Items",
-                LastModified: "21.04.2013",
-                Author: "John Smith",
-                CanonicalUrl: "http://www.aol.com"
-            }
-        ];
+        $scope.allItems = [];
 
         $scope.$watch('selectedDynamicType', function () {
             var typeId = $scope.selectedDynamicType.Id;
@@ -59,6 +46,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
     initialize: function () {
 
         $('#tabstrip').kendoTabStrip();
+        $('#all-selected-tabstrip').kendoTabStrip();
 
         Telerik.Sitefinity.FixedDynamicContentWidget.Designer.callBaseMethod(this, 'initialize');
     },
