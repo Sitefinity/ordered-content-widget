@@ -1,4 +1,22 @@
-﻿Type.registerNamespace("Telerik.Sitefinity.FixedDynamicContentWidget");
+﻿var designerApp = angular.module('DesignerApp', ['ngResource']);
+
+designerApp.factory('DynamicTypes', ['$resource',
+    function ($resource) {
+        return $resource('/restapi/fixeddynamiccontent/dynamictypes', {}, {
+            query: { method: 'GET', isArray: true }
+        });
+    }
+]);
+
+designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', function ($scope, DynamicTypes) {
+    
+    $scope.selectedDynamicType = "";
+
+    $scope.dynamicTypes = DynamicTypes.query();
+    
+}]);
+
+Type.registerNamespace("Telerik.Sitefinity.FixedDynamicContentWidget");
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer = function (element) {
     Telerik.Sitefinity.FixedDynamicContentWidget.Designer.initializeBase(this, [element]);
