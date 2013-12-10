@@ -50,9 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Templates\DesignerTemplate.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\DesignerTemplate.ascx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Designer.js" />

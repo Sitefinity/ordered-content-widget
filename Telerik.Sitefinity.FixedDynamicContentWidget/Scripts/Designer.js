@@ -8,6 +8,9 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
 
     /* ************************* set up and tear down ************************* */
     initialize: function () {
+
+        $('#tabstrip').kendoTabStrip();
+
         Telerik.Sitefinity.FixedDynamicContentWidget.Designer.callBaseMethod(this, 'initialize');
     },
     dispose: function () {
