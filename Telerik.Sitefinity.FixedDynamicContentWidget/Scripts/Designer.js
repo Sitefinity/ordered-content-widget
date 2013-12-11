@@ -19,6 +19,18 @@ designerApp.factory('DynamicContents', ['$resource',
 var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 
     function ($scope, DynamicTypes, DynamicContents) {
 
+        $scope.controlData = {};
+        $scope.controlDataLoaded = false;
+        $scope.contentTypesLoaded = false;
+
+        var findType = function (clrType) {
+            for (var i = 0; i < $scope.dynamicTypes.length; i++) {
+                if ($scope.dynamicTypes[i].ClrType == clrType) {
+                    return $scope.dynamicTypes[i];
+                }
+            }
+        };
+
         var findItem = function (id) {
             for (var i = 0; i < $scope.allItems.length; i++) {
                 if ($scope.allItems[i].Id == id) {
@@ -26,10 +38,20 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 }
             }
         };
-    
+
+        var selectType = function (clrType) {
+            $scope.selectedDynamicType = findType(clrType);
+        };
+
+        var loadDesignerData = function () {
+            selectType($scope.controlData.DynamicContentTypeName);
+        };
+
         $scope.selectedDynamicType = "";
 
-        $scope.dynamicTypes = DynamicTypes.query();
+        $scope.dynamicTypes = DynamicTypes.query(function () {
+            $scope.contentTypesLoaded = true;
+        });
     
         $scope.allItems = [];
 
@@ -40,12 +62,25 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.selectedItems.push(item);
         };
 
+        $scope.load = function (controlData) {
+            $scope.controlData = controlData;
+            $scope.controlDataLoaded = true;
+        };
+
         $scope.$watch('selectedDynamicType', function () {
             var typeId = $scope.selectedDynamicType.Id;
             if (!(typeId && typeId.length > 0)) return;
 
             $scope.allItems = DynamicContents.query({ id: typeId });
         });
+
+        $scope.$watch('[controlDataLoaded, contentTypesLoaded]', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.controlDataLoaded && $scope.contentTypesLoaded) {
+                    loadDesignerData();
+                }
+            }
+        }, true);
 
 }]);
 
@@ -86,23 +121,16 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
 
             controlData.SelectedItems = JSON.stringify(selectedItems);
         }
-
-        //controlData.MaxItems = this.get_MaxItems().get_value();
-
-        //controlData.TemplateKey = this.get_templateSelector().get_value();
-
     },
 
-    // forces the designer to refresh the UI from the cotnrol data
+    // forces the designer to refresh the UI from the control data
     refreshUI: function () {
         var controlData = this.get_controlData();
 
-        //if (controlData.MaxItems != 'undefined')
-        //    this.get_MaxItems().set_value(controlData.MaxItems);
-
-        //if (controlData.TemplateKey) {
-        //    this.get_templateSelector().set_value(controlData.TemplateKey);
-        //}
+        var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
+        //ctrl.$apply(function () {
+            ctrl.load(controlData);
+        //});
     }
 };
 
