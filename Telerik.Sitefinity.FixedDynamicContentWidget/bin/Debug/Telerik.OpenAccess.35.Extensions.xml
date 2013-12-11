@@ -678,6 +678,53 @@
             <param name="length">The length of this property.</param>
             <returns></returns>
         </member>
+        <member name="T:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions.HasValueColumnType``1(``0,System.String)">
+            <summary>
+            Specifies the underlying column type of the value column.
+            </summary>
+            <param name="configuration">The property configuration object.</param>
+            <param name="columnSQLType">The column type of the value column.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions.WithValueOpenAccessType``1(``0,Telerik.OpenAccess.OpenAccessType)">
+            <summary>
+            Specifies the OpenAccessType for the value column.
+            </summary>
+            <param name="configuration">The property configuration object.</param>
+            <param name="openAccessType">The OpenAccessType to be used.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions.HasValuePrecision``1(``0,System.Int32)">
+            <summary>
+            Specifies the precision of the value column.
+            </summary>
+            <param name="configuration">The property configuration object.</param>
+            <param name="precision">The precision of the value column.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions.HasValueScale``1(``0,System.Int32)">
+            <summary>
+            Specifies the scale of the value column.
+            </summary>
+            <param name="configuration">The property configuration object.</param>
+            <param name="scale">The scale of the value column.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions.HasValueLength``1(``0,System.Int32)">
+            <summary>
+            Specifies the length of the value column.
+            </summary>
+            <param name="configuration">The property configuration object.</param>
+            <param name="length">The length of the value column.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.LookUpExtensions.WithValueConverter``1(``0,System.String)">
+            <summary>
+            Sets a specific converter to be used with the value column.
+            </summary>
+            <param name="configuration">The property configuration object.</param>
+            <param name="converterName">The converter for this column.</param>
+        </member>
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.Advanced.StringArrayPropertyExtensions">
             <summary>
             A class containing extensions for the String Array Properties.
@@ -1019,6 +1066,56 @@
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.ICommonNavigationConfiguration">
             <summary>
              An interface used to deliver common fluent configuration methods to NavigationPropertyConfiguration implementations 
+            </summary>
+        </member>
+        <member name="T:Telerik.OpenAccess.Metadata.Fluent.ILookUpPropertyConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpPropertyConfiguration.ILookUpTableConfigurationProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.SequenceColumnName">
+            <summary>
+            Specifies the name for the sequence column.
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.SequenceColumnType">
+            <summary>
+            Specifies the underlying column type of the sequence column.
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.ValueOpenAccessType">
+            <summary>
+            Specifies the OpenAccessType for the value column.
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.ValueColumnType">
+            <summary>
+            Specifies the underlying column type of the value column.
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.ValueLength">
+            <summary>
+            Specifies the length/precision of the value column.
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.ValueScale">
+            <summary>
+            Specifies the scale of the value column.
+            </summary>
+        </member>
+        <member name="P:Telerik.OpenAccess.Metadata.Fluent.ILookUpTableConfiguration.ValueConverterName">
+            <summary>
+            Specifies a specific converter to be used with the value column.
             </summary>
         </member>
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.StreamPropertyConfiguration">
@@ -2050,6 +2147,76 @@
             <param name="configuration">The primitive dictionary configuration object.</param>
             <param name="dataAccessKind">The data access kind for the persistent type.</param>
         </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.WithKeyOpenAccessType``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},Telerik.OpenAccess.OpenAccessType)">
+            <summary>
+            Specifies the OpenAccessType for the dictionary key column.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+            <param name="openAccessType">The OpenAccessType to be used.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.HasKeyColumnType``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.String)">
+            <summary>
+            Specifies the underlying column type of the dictionary key column.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+            <param name="columnSQLType">The column type of the dictionary key column.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.HasKeyPrecision``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.Int32)">
+            <summary>
+            Specifies the precision of the dictionary key column.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+            <param name="precision">The precision of the dictionary key.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.HasKeyScale``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.Int32)">
+            <summary>
+            Specifies the scale of the dictionary key column.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+            <param name="scale">The scale of the dictionary key.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.HasKeyLength``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.Int32)">
+            <summary>
+            Specifies the length of the dictionary key column.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+            <param name="length">The length of the dictionary key.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.WithKeyConverter``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.String)">
+            <summary>
+            Sets a specific converter to be used with the dictionary key.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+            <param name="converterName">The converter for this column.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.WithValueInfinityLength``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2})">
+            <summary>
+            Specifies that the dictionary value should be mapped using infinite length.
+            </summary>
+            <typeparam name="TEntity">The declaring type.</typeparam>
+            <typeparam name="TKey">The type of the dictionary key.</typeparam>
+            <typeparam name="TValue">The type of the dictionary value.</typeparam>
+            <param name="configuration">The primitive dictionary configuration object.</param>
+        </member>
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.DictionaryPropertyConfiguration`3">
             <summary>
             Represents the configuration object for an Dictionary property.
@@ -2594,7 +2761,7 @@
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.FluentExtensions.ToColumn``1(``0,System.String,Telerik.OpenAccess.Metadata.Fluent.TableName)">
             <summary>
-            Specify the column name that this property is mapped to as well as te table that it belongs.
+            Specify the column name that this property is mapped to as well as the table that it belongs.
             </summary>
             <param name="columnName">The name of the column.</param>
             <param name="tableName">The name of the table the column belongs to.</param>
@@ -2602,7 +2769,7 @@
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.FluentExtensions.ToColumn(Telerik.OpenAccess.Metadata.Fluent.ByteArrayPropertyConfiguration,System.String,Telerik.OpenAccess.Metadata.Fluent.TableName)">
             <summary>
-            Specify the column name that this property is mapped to as well as te table that it belongs.
+            Specify the column name that this property is mapped to as well as the table that it belongs.
             </summary>
             <param name="columnName">The name of the column.</param>
             <param name="tableName">The name of the table the column belongs to.</param>
@@ -2610,7 +2777,7 @@
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.FluentExtensions.ToColumn(Telerik.OpenAccess.Metadata.Fluent.GenericPropertyConfiguration,System.String,Telerik.OpenAccess.Metadata.Fluent.TableName)">
             <summary>
-            Specify the column name that this property is mapped to as well as te table that it belongs.
+            Specify the column name that this property is mapped to as well as the table that it belongs.
             </summary>
             <param name="columnName">The name of the column.</param>
             <param name="tableName">The name of the table the column belongs to.</param>
@@ -3065,7 +3232,7 @@
             Creates and returns a detached collection of persistent capable objects that are loaded in accordance to the given fetch strategy.
             </summary>
             <example>
-            The following example retrieves a collection of employee objects from the Nortwhind database and uses the CreateDetachedCopy method 
+            The following example retrieves a collection of employee objects from the Northwind database and uses the CreateDetachedCopy method 
             to create a detached copy of the object. The employeeCopy object will not be tracked by OpenAccess and any changes
             made to it will not be persisted.
             <code>
@@ -3083,7 +3250,7 @@
             Creates and returns a detached copy of the persistent capable object that includes the specified reference properties.
             </summary>
             <example>
-            The following example retrieves a single employee object from the Nortwhind database and uses the CreateDetachedCopy method 
+            The following example retrieves a single employee object from the Northwind database and uses the CreateDetachedCopy method 
             to create a detached copy of the object. The employeeCopy object will not be tracked by OpenAccess and any changes
             made to it will not be persisted.
             <code>
@@ -4206,6 +4373,30 @@
             <summary>
             Type related helper methods
             </summary>
+        </member>
+        <member name="T:Telerik.OpenAccess.Query.ILinqExecutor">
+            <summary>hidden</summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Query.ILinqExecutor.GetParameterValue``1(System.Int32)">
+            <summary>hidden</summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Query.ILinqExecutor.GetProjectionValue``1(System.Int32)">
+            <summary>hidden</summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Query.ILinqExecutor.GetClientSideValue``1(Telerik.OpenAccess.Query.LinqFunc,System.String)">
+            <summary>hidden</summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Query.ILinqExecutor.GetSource``1(System.String)">
+            <summary>hidden</summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Query.ILinqExecutor.GetCurrentGrouping``1">
+            <summary>hidden</summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Query.ILinqExecutor.SetGroupingKey``2(``0)">
+            <summary>hidden</summary>
+        </member>
+        <member name="T:Telerik.OpenAccess.Query.LinqFunc">
+            <summary>hidden</summary>
         </member>
         <member name="T:Telerik.OpenAccess.Query.ParamPos">
             <summary>

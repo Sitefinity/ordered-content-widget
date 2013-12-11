@@ -18,8 +18,9 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             {
                 dynamicTypes.Add(new DynamicTypeResponse()
                 {
-                     Title = dmType.DisplayName,
-                     Id = dmType.Id
+                    Id = dmType.Id,
+                    Title = dmType.DisplayName,
+                    ClrType = dmType.GetFullTypeName()
                 });
             }
 

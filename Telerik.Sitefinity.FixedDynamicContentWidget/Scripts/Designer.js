@@ -16,7 +16,7 @@ designerApp.factory('DynamicContents', ['$resource',
     }
 ]);
 
-designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 
+var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 
     function ($scope, DynamicTypes, DynamicContents) {
 
         var findItem = function (id) {
@@ -37,7 +37,6 @@ designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicConten
 
         $scope.toggleSelect = function (id) {
             var item = findItem(id);
-            debugger;
             $scope.selectedItems.push(item);
         };
 
@@ -74,6 +73,19 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
     // forces the designer to apply the changes on UI to the cotnrol data
     applyChanges: function () {
         var controlData = this.get_controlData();
+       
+        var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
+        controlData.DynamicContentTypeName = ctrl.selectedDynamicType.ClrType;
+        
+        var selectedItems = [];
+        if (ctrl.selectedItems.length > 0) {
+            controlData.SelectedItems = JSON.stringify(ctrl.selectedItems);
+            for (i = 0; i < ctrl.selectedItems.length; i++) {
+                selectedItems.push(ctrl.selectedItems[i].Id);
+            }
+
+            controlData.SelectedItems = JSON.stringify(selectedItems);
+        }
 
         //controlData.MaxItems = this.get_MaxItems().get_value();
 

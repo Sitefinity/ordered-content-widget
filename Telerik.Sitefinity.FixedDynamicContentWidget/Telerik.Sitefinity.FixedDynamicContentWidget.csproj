@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\SitefinityWebApp\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,23 +33,23 @@
   <ItemGroup>
     <Reference Include="ServiceStack, Version=3.9.56.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\ServiceStack.dll</HintPath>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\packages\Sitefinity.ServiceStack.3.9.56\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=3.9.56.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\packages\Sitefinity.ServiceStack.Common.3.9.56\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=3.9.56.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\packages\Sitefinity.ServiceStack.Common.3.9.56\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface, Version=3.9.56.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\packages\Sitefinity.ServiceStack.3.9.56\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=3.9.56.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\packages\Sitefinity.ServiceStack.Text.3.9.56\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,24 +63,14 @@
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.OpenAccess, Version=2013.3.1014.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\Telerik.OpenAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\Telerik.Sitefinity.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Model, Version=6.2.4910.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\Telerik.Sitefinity.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Utilities, Version=6.2.4910.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Sitefinity\Projects\FixedDynamicWidget\bin\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\Reference Assemblies\Telerik\OpenAccess\Telerik.OpenAccess.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\FixedDynamicContentConfig.cs" />
     <Compile Include="Designer.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="SelectedItem.cs" />
     <Compile Include="Services\DynamicContentRequest.cs" />
     <Compile Include="Services\DynamicContentResponse.cs" />
     <Compile Include="Services\DynamicContentService.cs" />
@@ -98,6 +88,20 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Designer.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Work\CMS\Sitefinity 4.0\Code Base\Telerik.Sitefinity.Model\Telerik.Sitefinity.Model.csproj">
+      <Project>{d7192694-82fa-4765-a290-e7ce39fb6e34}</Project>
+      <Name>Telerik.Sitefinity.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Work\CMS\Sitefinity 4.0\Code Base\Telerik.Sitefinity\Telerik.Sitefinity.csproj">
+      <Project>{324addd1-4782-4857-abe7-de551da41df2}</Project>
+      <Name>Telerik.Sitefinity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Work\CMS\Sitefinity 4.0\Code Base\Utilities\Telerik.Sitefinity.Utilities.csproj">
+      <Project>{31d33365-655a-45ac-a690-bb62d6fa08e7}</Project>
+      <Name>Telerik.Sitefinity.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

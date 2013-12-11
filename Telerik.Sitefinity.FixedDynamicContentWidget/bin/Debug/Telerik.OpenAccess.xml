@@ -3929,7 +3929,7 @@
     </member>
     <member name="P:Telerik.OpenAccess.JoinTableAssociationAttribute.OwnerColumns">
       <summary>
-            Gets or sets a coma separated list of the columns of the join table that point to the owner side of the association.
+            Gets or sets a comma separated list of the columns of the join table that point to the owner side of the association.
             </summary>
     </member>
     <member name="P:Telerik.OpenAccess.JoinTableAssociationAttribute.TargetColumns">
@@ -4606,7 +4606,7 @@
     </member>
     <member name="T:Telerik.OpenAccess.Metadata.AttributesMetadataSource">
       <summary>
-            A mapping source that uses clr attributes to create the mapping model. 
+            A mapping source that uses CLR attributes to create the mapping model. 
             </summary>
     </member>
     <member name="T:Telerik.OpenAccess.Metadata.MetadataSource">
@@ -4685,20 +4685,20 @@
     </member>
     <member name="M:Telerik.OpenAccess.Metadata.AttributesMetadataSource.CreateModel">
       <summary>
-            Creates a MetadataContainer instance by reading clr attributes.
+            Creates a MetadataContainer instance by reading CLR attributes.
             </summary>
       <returns>A MetadataContainer instance.</returns>
     </member>
     <member name="M:Telerik.OpenAccess.Metadata.AttributesMetadataSource.FromAssembly(System.Reflection.Assembly)">
       <summary>
-            Creates a mapping source by reading the clr attributes in an assembly
+            Creates a mapping source by reading the CLR attributes in an assembly
             </summary>
       <param name="assembly">A compiled assembly</param>
       <returns>The new Attributes mapping source as type AttributesMetadataSource</returns>
     </member>
     <member name="M:Telerik.OpenAccess.Metadata.AttributesMetadataSource.FromContext(System.Type)">
       <summary>
-            Creates a mapping source by reading the clr attributes of the classess that are managed by a 
+            Creates a mapping source by reading the CLR attributes of the classes that are managed by a 
             specific OpenAccessDataContext implementation.
             </summary>
       <param name="contextType">A type derived by the base OpenAccessContext type</param>
@@ -6179,7 +6179,13 @@
     </member>
     <member name="P:Telerik.OpenAccess.Metadata.NamingRules.ShouldApplyPropertyNamingRuleOnReference">
       <summary>
-      </summary>
+            Gets or Sets a value indicating whether the property naming rules should be applied on references.
+            </summary>
+    </member>
+    <member name="P:Telerik.OpenAccess.Metadata.NamingRules.IsPrefixSuffixEnabled">
+      <summary>
+            Gets or Sets a value indicating whether adding or removing of the prefix and suffixes is enabled.
+            </summary>
     </member>
     <member name="T:Telerik.OpenAccess.Metadata.PluralizationModes">
       <summary>
@@ -6435,7 +6441,7 @@
       <summary>A type representing a VARCHAR value in the database with maximum length allowed by the database server. Different backends use different representations of this type.</summary>
     </member>
     <member name="F:Telerik.OpenAccess.OpenAccessType.UnicodeCharacter">
-      <summary>A simple type representing a unicode character.</summary>
+      <summary>A simple type representing a Unicode character.</summary>
     </member>
     <member name="F:Telerik.OpenAccess.OpenAccessType.UnicodeStringFixedLength">
       <summary>A type representing a NCHAR value in the database. Different backends use different representations of this type.</summary>
@@ -7311,7 +7317,7 @@
       <summary>
             Controls if normal query operations are done without database transactions.
             </summary>
-      <value>Default: false</value>
+      <value>Default: true</value>
     </member>
     <member name="P:Telerik.OpenAccess.BackendConfiguration.RuntimeConfiguration.InterceptDefaultFetchGroupFieldAccess">
       <summary>
@@ -13831,7 +13837,7 @@
     <member name="M:Telerik.OpenAccess.UniqueIdGenerator.Initialize(Telerik.OpenAccess.OpenAccessContextBase)">
       <summary>
             Initializes the settings for the unique id generator. 
-            This method can be overriden to initialize the seed value that will be used to obtain a unique id.
+            This method can be overridden to initialize the seed value that will be used to obtain a unique id.
             </summary>
       <param name="context">An OpenAccessContext instance that can be used to perform any queries that might be required to initialize this instance</param>
     </member>
@@ -13877,6 +13883,14 @@
              Controls weather all loaded objects are refreshed in a new transaction.
              </summary>
       <value>True if all objects should be refreshed in subsequent transactions, false otherwise. True is the default.</value>
+    </member>
+    <member name="P:Telerik.OpenAccess.IOpenAccessContextOptions.IsolationLevel">
+      <summary>
+            Controls the isolation level of this contexts resources.
+            </summary>
+      <value>Isolation Level (Default: null)</value>
+      <exception cref="T:System.ArgumentOutOfRangeException">Wrong isolation level, only Snapshot, ReadCommitted and ReadUncommitted allowed.</exception>
+      <exception cref="T:System.InvalidOperationException">Isolation level cannot be changed because a connection is active.</exception>
     </member>
     <member name="M:Telerik.OpenAccess.OpenAccessContextBase.#ctor(System.String,Telerik.OpenAccess.BackendConfiguration,Telerik.OpenAccess.Metadata.MetadataSource)">
       <summary>
@@ -14631,6 +14645,14 @@
              Controls whether all loaded objects are refreshed in a new transaction.
              </summary>
       <value>True if all objects should be refreshed in subsequent transactions, false otherwise. True is the default.</value>
+    </member>
+    <member name="P:Telerik.OpenAccess.OpenAccessContextBase.Telerik#OpenAccess#IOpenAccessContextOptions#IsolationLevel">
+      <summary>
+            Controls the isolation level of this contexts resources.
+            </summary>
+      <value>Isolation Level (Default: null)</value>
+      <exception cref="T:System.ArgumentOutOfRangeException">Wrong isolation level, only Snapshot, ReadCommitted and ReadUncommitted allowed.</exception>
+      <exception cref="T:System.InvalidOperationException">Isolation level cannot be changed because a connection is active.</exception>
     </member>
     <member name="P:Telerik.OpenAccess.OpenAccessContextBase.Name">
       <summary>
@@ -18844,7 +18866,7 @@
             </summary>
       <param name="typeName">Must be given</param>
       <param name="type">Can be null</param>
-      <returns>An IPersistentTypeDescriptor for a speciffic persistent type</returns>
+      <returns>An IPersistentTypeDescriptor for a specific persistent type</returns>
     </member>
     <member name="M:Telerik.OpenAccess.Metadata.PersistentMetaData.GetTypeNamesImpl">
       <summary>

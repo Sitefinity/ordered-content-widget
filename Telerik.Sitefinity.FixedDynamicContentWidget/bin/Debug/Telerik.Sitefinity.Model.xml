@@ -1193,6 +1193,12 @@
             </summary>
             <value>The item action.</value>
         </member>
+        <member name="P:Telerik.Sitefinity.SiteSync.Model.SiteSyncLogEntry.ParentTitle">
+            <summary>
+            Gets the title for the item's parent.
+            </summary>
+            <value>The title for the item's parent.</value>
+        </member>
         <member name="P:Telerik.Sitefinity.SiteSync.Model.SiteSyncLogEntry.Timestamp">
             <summary>
             Gets the date when the item was modified.
@@ -1204,6 +1210,12 @@
             Gets the user that modified the item.
             </summary>
             <value>The user that modified the item.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.SiteSync.Model.SiteSyncLogEntry.UserName">
+            <summary>
+            Gets the name of the user that modified the item.
+            </summary>
+            <value>The name of the user that modified the item.</value>
         </member>
         <member name="P:Telerik.Sitefinity.SiteSync.Model.SiteSyncLogEntry.AdditionalInfo">
             <summary>
@@ -10417,10 +10429,10 @@
         </member>
         <member name="P:Telerik.Sitefinity.Pages.Model.PageNode.RenderAsLink">
             <summary>
-            Gets or sets the value determining whether this taxon 
-            should be rendered as link in the navigarion controls
+            Gets or sets the value determining whether this page node
+            should be part of the url generation.
             </summary>
-            <value>True if the taxon should be rendered as link; otherwise false. The default is true</value>
+            <value><c>True</c>c if the node will participate in the url; otherwise <c>false</c>. The default is <c>true</c>.</value>
         </member>
         <member name="P:Telerik.Sitefinity.Pages.Model.PageNode.AllowMultipleUrls">
             <summary>
@@ -14512,12 +14524,7 @@
             </summary>
             <value>The length.</value>
         </member>
-        <member name="P:Telerik.Sitefinity.Model.Lstring.CurrentCultureDebugView">
-            <summary>
-            Used for <see cref="!:System.Diagnostics.DebuggerDisplay"/>
-            </summary>
-        </member>
-        <member name="P:Telerik.Sitefinity.Model.Lstring.AllValuesDebugView">
+        <member name="P:Telerik.Sitefinity.Model.Lstring.DebuggerDisplay">
             <summary>
             Used for <see cref="!:System.Diagnostics.DebuggerDisplay"/>
             </summary>
@@ -14833,6 +14840,11 @@
             </summary>
             <value>The index.</value>
         </member>
+        <member name="P:Telerik.Sitefinity.Metadata.Model.MetaField.IsDeleted">
+            <summary>
+            If marked as deleted, mapping configuration will be dropped and meta field will be deleted when scheme is updated.
+            </summary>
+        </member>
         <member name="P:Telerik.Sitefinity.Metadata.Model.MetaField.Required">
             <summary>
             Gets or sets a value indicating whether this <see cref="T:Telerik.Sitefinity.Metadata.Model.MetaField"/> is required.
@@ -15143,6 +15155,12 @@
             Gets the last modified.
             </summary>
             <value>The last modified.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Metadata.Model.MetaType.IsDeleted">
+            <summary>
+            If marked as deleted, mapping configuration will be dropped and meta type and all corresponding meta fields
+            will be deleted when scheme is updated.
+            </summary>
         </member>
         <member name="T:Telerik.Sitefinity.Metadata.Model.DatabaseInheritanceType">
             <summary>
@@ -15749,6 +15767,12 @@
             Gets the name of the application.
             </summary>
             <value>The name of the application.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Pages.Model.ControlProperty.Telerik#Sitefinity#Model#IOrderedItem#Ordinal">
+            <summary>
+            Gets or sets the ordinal number.
+            </summary>
+            <value>The ordinal.</value>
         </member>
         <member name="T:Telerik.Sitefinity.Pages.Model.DraftPresentation">
             <summary>

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Abstractions.VirtualPath;
+using Telerik.Sitefinity.Abstractions.VirtualPath.Configuration;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.FixedDynamicContentWidget.Configuration;
 using Telerik.Sitefinity.FixedDynamicContentWidget.Services;
 using Telerik.Sitefinity.Services;
@@ -28,6 +31,14 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        public override string Name
+        {
+            get
+            {
+                return Module.ModuleName;
+            }
+        }
+
         /// <summary>
         /// Gets the managers.
         /// </summary>
@@ -50,13 +61,13 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         /// <param name="settings">The settings.</param>
         public override void Initialize(ModuleSettings settings)
         {
-            base.Initialize(settings);
-
             App.WorkWith()
-               .Module()
+               .Module(Module.ModuleName)
                .Initialize()
                .Configuration<FixedDynamicContentConfig>()
                .ServiceStackPlugin(new FixedContentPlugin());
+
+            base.Initialize(settings);
         }
 
         /// <summary>
@@ -65,7 +76,15 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         /// <param name="initializer">The initializer.</param>
         public override void Install(SiteInitializer initializer)
         {
-            // do nothing for now
+            initializer
+                .Installer
+                .PageToolbox()
+                    .ContentSection()
+                        .LoadOrAddWidget<Widget>("FixedDynamicContentWidget")
+                        .SetTitle("Ordered Content")
+                        .Done();
+
+            this.InstallCustomVirtualPaths(initializer);
         }
 
         /// <summary>
@@ -76,6 +95,45 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         {
             return Config.Get<FixedDynamicContentConfig>();
         }
+
+        #endregion
+
+        #region Non-public methods
+
+        private void InstallCustomVirtualPaths(SiteInitializer initializer)
+        {
+            var virtualPathConfig = initializer.Context.GetConfig<VirtualPathSettingsConfig>();
+            ConfigManager.Executed += new EventHandler<ExecutedEventArgs>(ConfigManager_Executed);
+            var dashboardModuleVirtualPathConfig = new VirtualPathElement(virtualPathConfig.VirtualPaths)
+            {
+                VirtualPath = Module.FixedDynamicContentWidgetVirtualPath + "*",
+                ResolverName = "EmbeddedResourceResolver",
+                ResourceLocation = "Telerik.Sitefinity.FixedDynamicContentWidget"
+            };
+            if (!virtualPathConfig.VirtualPaths.ContainsKey(Module.FixedDynamicContentWidgetVirtualPath + "*"))
+                virtualPathConfig.VirtualPaths.Add(dashboardModuleVirtualPathConfig);
+        }
+
+        private void ConfigManager_Executed(object sender, Telerik.Sitefinity.Data.ExecutedEventArgs args)
+        {
+            if (args.CommandName == "SaveSection")
+            {
+                var section = args.CommandArguments as VirtualPathSettingsConfig;
+                if (section != null)
+                {
+                    // Reset the VirtualPathManager whenever we save the VirtualPathConfig section.
+                    // This is needed so that our prefixes for the widget templates in the module assembly are taken into account.
+                    VirtualPathManager.Reset();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private fields and constants
+
+        public const string ModuleName = "FixedDynamicContentWidget";
+        public const string FixedDynamicContentWidgetVirtualPath = "~/FixedDyamicContentWidget/";
 
         #endregion
 
