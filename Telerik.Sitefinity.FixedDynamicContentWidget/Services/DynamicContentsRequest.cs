@@ -3,8 +3,9 @@ using System.Linq;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
-    public class DynamicContentRequest
+    public class DynamicContentsRequest
     {
         public string TypeId { get; set; }
+        public Guid[] SelectedContentIds { get; set; }
     }
 }

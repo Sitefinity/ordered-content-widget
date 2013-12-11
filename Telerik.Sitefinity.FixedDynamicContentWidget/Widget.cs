@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web.UI;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
-using Telerik.Sitefinity.Modules.Pages.PropertyPersisters;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI.ControlDesign;
 
@@ -35,7 +33,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             get
             {
                 if (string.IsNullOrEmpty(base.DefaultMasterTemplateKey))
-                    base.DefaultMasterTemplateKey = "eeec4e9a-07b6-6924-b3bf-ff00006ffe9b";
+                    base.DefaultMasterTemplateKey = "eeec4e9a-07b6-6924-b3bf-ff00006ffe9b"; // TODO: this is a bug, fix it
                 return base.DefaultMasterTemplateKey;
             }
             set
@@ -50,8 +48,6 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             {
                 this.MasterViewControl.SourceItemsIds = this.RelatedItemsIds;
             }
-
-            
 
             var items = new List<DynamicContent>();
             foreach (var itemId in this.SelectedItems)

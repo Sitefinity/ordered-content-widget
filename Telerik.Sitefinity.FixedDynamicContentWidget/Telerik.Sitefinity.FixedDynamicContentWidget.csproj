@@ -70,10 +70,9 @@
     <Compile Include="Configuration\FixedDynamicContentConfig.cs" />
     <Compile Include="Designer.cs" />
     <Compile Include="Module.cs" />
-    <Compile Include="SelectedItem.cs" />
-    <Compile Include="Services\DynamicContentRequest.cs" />
+    <Compile Include="Services\DynamicContentsRequest.cs" />
     <Compile Include="Services\DynamicContentResponse.cs" />
-    <Compile Include="Services\DynamicContentService.cs" />
+    <Compile Include="Services\DynamicContentsService.cs" />
     <Compile Include="Services\DynamicTypeRequest.cs" />
     <Compile Include="Services\DynamicTypeResponse.cs" />
     <Compile Include="Services\DynamicTypesService.cs" />

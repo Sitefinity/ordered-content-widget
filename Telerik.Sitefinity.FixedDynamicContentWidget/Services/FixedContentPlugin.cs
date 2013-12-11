@@ -16,10 +16,10 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
         public void Register(IAppHost appHost)
         {
             appHost.RegisterService<DynamicTypesService>();
-            appHost.RegisterService<DynamicContentService>();
+            appHost.RegisterService<DynamicContentsService>();
 
             appHost.Routes.Add<DynamicTypeRequest>("/fixeddynamiccontent/dynamictypes", "GET");
-            appHost.Routes.Add<DynamicContentRequest>("/fixeddynamiccontent/dynamiccontents/{TypeId}", "GET");
+            appHost.Routes.Add<DynamicContentsRequest>("/fixeddynamiccontent/dynamiccontents/{TypeId}", "GET");
         }
     }
 }
