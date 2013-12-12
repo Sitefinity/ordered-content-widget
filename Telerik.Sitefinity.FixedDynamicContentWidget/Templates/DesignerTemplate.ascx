@@ -2,11 +2,15 @@
 <%@ Register Assembly="Telerik.Sitefinity" Namespace="Telerik.Sitefinity.Web.UI" TagPrefix="sf" %>
 <%@ Register TagPrefix="sf" Namespace="Telerik.Sitefinity.Web.UI.PublicControls" Assembly="Telerik.Sitefinity" %>
 
+<sf:JavaScriptEmbedControl runat="server" ID="JavaScriptEmbedControl3" ScriptEmbedPosition="Head" Url="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
 <sf:JavaScriptEmbedControl runat="server" ID="angularLink" ScriptEmbedPosition="Head" Url="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js" />
 <sf:JavaScriptEmbedControl runat="server" ID="angularResourceLink" ScriptEmbedPosition="Head" Url="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-resource.js" />
+<sf:JavaScriptEmbedControl runat="server" ID="JavaScriptEmbedControl2" ScriptEmbedPosition="Head" Url="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" />
+<sf:JavaScriptEmbedControl runat="server" ID="JavaScriptEmbedControl1" ScriptEmbedPosition="Head" Url="http://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js" />
 
 <sf:ResourceLinks ID="resourcesLinks" runat="server">
     <sf:ResourceFile JavaScriptLibrary="KendoWeb" />
+    <sf:ResourceFile JavaScriptLibrary="jQuery" />
     <sf:ResourceFile Name="Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_common_min.css" Static="True" />
 </sf:ResourceLinks>
 
@@ -69,8 +73,8 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr ng-repeat="item in selectedItems">
+                        <tbody ui-sortable="{ update: foo() }" ng-model="selectedItems">
+                            <tr ng-repeat="item in selectedItems" style="cursor: move;">
                                 <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
                                 <td>{{ item.Title }}</td>
                                 <td>{{ item.LastModified }}</td>

@@ -49,6 +49,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         {
             var scripts = new List<ScriptReference>(base.GetScriptReferences());
             scripts.Add(new ScriptReference(Designer.designerScript, typeof(Designer).Assembly.FullName));
+            scripts.Add(new ScriptReference(Designer.sortableScript, typeof(Designer).Assembly.FullName));
             return scripts;
         }
 
@@ -58,6 +59,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
 
         private const string layoutTemplatePath = "~/FixedDyamicContentWidget/Telerik.Sitefinity.FixedDynamicContentWidget.Templates.DesignerTemplate.ascx";
         internal const string designerScript = "Telerik.Sitefinity.FixedDynamicContentWidget.Scripts.Designer.js";
+        internal const string sortableScript = "Telerik.Sitefinity.FixedDynamicContentWidget.Scripts.lib.sortable.js";
 
         #endregion
 

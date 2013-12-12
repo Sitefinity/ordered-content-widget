@@ -1,4 +1,4 @@
-﻿var designerApp = angular.module('DesignerApp', ['ngResource']);
+﻿var designerApp = angular.module('DesignerApp', ['ngResource', 'ui.sortable']);
 
 designerApp.factory('DynamicTypes', ['$resource',
     function ($resource) {
@@ -51,9 +51,10 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         var loadDesignerData = function () {
             selectType($scope.controlData.DynamicContentTypeName);
             DynamicContents.query({ id : $scope.selectedDynamicType.Id,  SelectedContentIds: $scope.controlData.SelectedItems }, function(data) {
-                for (var i = 0; i < data.length; i++) {
-                    $scope.selectedItems[i] = data[i];
-                }
+                    $scope.selectedItems = data;                
+                //for (var i = 0; i < data.length; i++) {
+                //    $scope.selectedItems.push(data[i]);
+                //}
             });
         };
 
@@ -78,7 +79,17 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             if (!(typeId && typeId.length > 0)) return;
 
             $scope.allItems = DynamicContents.query({ id: typeId });
-        });
+        }, true);
+
+        $scope.$watch('selectedItems', function () {
+            console.log('Selected items changed!');
+            if($scope.selectedItems[0])
+                console.log('1: ' + $scope.selectedItems[0].Title);
+        }, true);
+
+        $scope.foo = function () {
+            console.log('foo called!');
+        };
 
         $scope.$watch('[controlDataLoaded, contentTypesLoaded]', function (newValue, oldValue) {
             if (newValue !== oldValue) {

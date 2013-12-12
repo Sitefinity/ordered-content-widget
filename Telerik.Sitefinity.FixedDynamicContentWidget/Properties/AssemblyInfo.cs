@@ -37,3 +37,4 @@ using Telerik.Sitefinity.FixedDynamicContentWidget;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: WebResource(Designer.designerScript, "application/x-javascript")]
+[assembly: WebResource(Designer.sortableScript, "application/x-javascript")]
