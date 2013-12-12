@@ -65,6 +65,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
                .Module(Module.ModuleName)
                .Initialize()
                .Configuration<FixedDynamicContentConfig>()
+               .Localization<OrderedContentResources>()
                .ServiceStackPlugin(new FixedContentPlugin());
 
             base.Initialize(settings);

@@ -18,32 +18,49 @@
 
     <div id="tabstrip">
         <ul>
-            <li class="k-state-active">Content</li>
-            <li>List Settings</li>
-            <li>Single Item Settings</li>
+            <li class="k-state-active">
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Content %>" />
+            </li>
+            <li>
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ListSettings %>" />
+            </li>
+            <li>
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SingleItemSettings %>" />
+            </li>
         </ul>
         <div>
-            <strong>Content type</strong>
+            <strong>
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ContentType %>" />
+            </strong>
             <br />
             <select ng-model="selectedDynamicType" ng-options="t.Title for t in dynamicTypes">
-                <option value="">-- choose content type --</option>
+                <option value="">
+                    <asp:Literal ID="Literal1" runat="server" Text="<%$Resources:OrderedContentResources, ChooseContentType %>" />
+                </option>
             </select>
 
             <div id="all-selected-tabstrip">
                 <ul>
-                    <li class="k-state-active">All</li>
-                    <li>Selected</li>
+                    <li class="k-state-active">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, All %>" />
+                    </li>
+                    <li>
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Selected %>" />
+                    </li>
                 </ul>
                 <div>
                     <table style="width: 500px;">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Title
+                                <th>
+                                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
                                 </th>
-                                <th>Modified on
+                                <th>
+                                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ModifiedOn %>" />
                                 </th>
-                                <th>By
+                                <th>
+                                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
                                 </th>
                                 <th></th>
                             </tr>
@@ -64,11 +81,14 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Title
+                                <th>
+                                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
                                 </th>
-                                <th>Modified on
+                                <th>
+                                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ModifiedOn %>" />
                                 </th>
-                                <th>By
+                                <th>
+                                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
                                 </th>
                                 <th></th>
                             </tr>
@@ -79,7 +99,11 @@
                                 <td>{{ item.Title }}</td>
                                 <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                 <td>{{ item.Author }}</td>
-                                <td><a href="{{ item.CanonicalUrl }}">View</a></td>
+                                <td>
+                                    <a href="{{ item.CanonicalUrl }}">
+                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
