@@ -25,9 +25,11 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 
             var dynamicType = provider.GetDynamicModuleType(Guid.Parse(request.TypeId));
             var type = TypeResolutionService.ResolveType(dynamicType.GetFullTypeName());
+            int virtualCount = 0;
 
             if (request.SelectedContentIds != null)
             {
+                virtualCount = request.SelectedContentIds.Length;
                 foreach (var id in request.SelectedContentIds)
                 {
                     var item = manager.GetDataItem(type, id);
@@ -37,13 +39,19 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             else
             {
                 var query = manager.GetDataItems(type).Where(di => di.Status == ContentLifecycleStatus.Live);
+                virtualCount = query.Count();
                 foreach (DynamicContent item in query)
                 {
                     dynamicContentList.Add(this.ToResponse(item, dynamicType));
                 }
+                
             }
 
-            return dynamicContentList.ToArray();
+            return new DynamicContentsResponse()
+            {
+                 Items = dynamicContentList,
+                 VirtualCount = virtualCount
+            };
         }
 
         private DynamicContentResponse ToResponse(DynamicContent dynamicContent, DynamicModuleType dynamicType)

@@ -74,6 +74,7 @@
     <Compile Include="OrderedContentResources.cs" />
     <Compile Include="Services\DynamicContentsRequest.cs" />
     <Compile Include="Services\DynamicContentResponse.cs" />
+    <Compile Include="Services\DynamicContentsResponse.cs" />
     <Compile Include="Services\DynamicContentsService.cs" />
     <Compile Include="Services\DynamicTypeRequest.cs" />
     <Compile Include="Services\DynamicTypeResponse.cs" />

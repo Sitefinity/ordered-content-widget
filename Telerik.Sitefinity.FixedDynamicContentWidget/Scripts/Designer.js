@@ -11,7 +11,7 @@ designerApp.factory('DynamicTypes', ['$resource',
 designerApp.factory('DynamicContents', ['$resource',
     function ($resource) {
         return $resource('/restapi/fixeddynamiccontent/dynamiccontents/:id', {}, {
-            query: { method: 'GET', isArray: true }
+            query: { method: 'GET', isArray: false }
         });
     }
 ]);
@@ -24,7 +24,10 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.contentTypesLoaded = false;
 
         $scope.allItems = [];
+        $scope.allItemsVirtualCount = 0;
+
         $scope.selectedItems = [];
+        $scope.selectedItemsVirtualCount = 0;
 
         var findType = function (clrType) {
             for (var i = 0; i < $scope.dynamicTypes.length; i++) {
@@ -51,7 +54,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         var loadDesignerData = function () {
             selectType($scope.controlData.DynamicContentTypeName);
             DynamicContents.query({ id : $scope.selectedDynamicType.Id,  SelectedContentIds: $scope.controlData.SelectedItems }, function(data) {
-                $scope.selectedItems = data;
+                $scope.selectedItems = data.Items;
             });
         };
 
@@ -76,7 +79,8 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             if (!(typeId && typeId.length > 0)) return;
 
             DynamicContents.query({ id: typeId }, function (data) {
-                $scope.allItems = data;
+                $scope.allItems = data.Items;
+                $scope.allItemsVirtualCount = data.VirtualCount;
             });
 
         }, true);
