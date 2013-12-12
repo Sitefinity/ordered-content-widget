@@ -126,19 +126,28 @@
 
         </div>
         <div>
-            <input type="radio" ng-model="listMode" value="paging" name="master-mode" /> 
+            <input type="radio" ng-model="listMode" value="paging" /> 
             <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AllowPaging %>" /></strong>
             <br />
             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, DivideTheListOnPagesUpTo %>"></asp:Literal>
-            <input type="text" ng-model="itemsPerPage" />
+            <input type="text" ng-model="itemsPerPage" ng-disabled="listMode !== 'paging'" />
             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsPerPage %>"></asp:Literal>
-
+            
+            <br />
+            
             <input type="radio" ng-model="listMode" value="limit" />
             <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, UseLimit %>" /></strong>
             <br />
             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowOnlyLimitedNumberOfItems %>"></asp:Literal>
-            <input type="text" ng-model="itemsPerPage" name="master-mode" />
+            <input type="text" ng-model="limitCount" name="master-mode" ng-disabled="listMode !== 'limit'" />
             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsInTotal %>"></asp:Literal>
+            
+            <br />
+
+            <input type="radio" ng-model="listMode" value="none" />
+            <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NoLimitAndPaging %>" /></strong>
+            <br />
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowAllPublishedItemsAtOnce %>" />
 
         </div>
         <div>

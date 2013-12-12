@@ -347,5 +347,35 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: No limit and paging
+        /// </summary>
+        [ResourceEntry("NoLimitAndPaging",
+            Value = "No limit and paging",
+            Description = "phrase: No limit and paging",
+            LastModified = "2013/12/12")]
+        public string NoLimitAndPaging
+        {
+            get
+            {
+                return this["NoLimitAndPaging"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Show all published items at once
+        /// </summary>
+        [ResourceEntry("ShowAllPublishedItemsAtOnce",
+            Value = "Show all published items at once",
+            Description = "phrase: Show all published items at once",
+            LastModified = "2013/12/12")]
+        public string ShowAllPublishedItemsAtOnce
+        {
+            get
+            {
+                return this["ShowAllPublishedItemsAtOnce"];
+            }
+        }
+
     }
 }

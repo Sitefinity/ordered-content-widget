@@ -56,6 +56,9 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         // Determines the page size, if paging is enabled.
         $scope.itemsPerPage = 20;
 
+        // Determines the limit of items to show if use limit mode
+        $scope.limitCount = 20;
+
         /*
          * Finds the index of an item for a given id
          * within a specified collection.
@@ -121,13 +124,16 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
             if(masterDefinition.AllowPaging) {
                 $scope.listMode = 'paging'
-            } else if(masterDefinition.UseLimit) {
+                $scope.itemsPerPage = masterDefinition.ItemsPerPage;
+            } else if(masterDefinition.ItemsPerPage !== 0) {
                 $scope.listMode = 'limit';
+                $scope.limitCount = masterDefinition.ItemsPerPage;
             } else {
                 $scope.listMode = 'none';
+                $scope.itemsPerPage = 20;
+                $scope.limitCount = 20;
             }
 
-            $scope.itemsPerPage = masterDefinition.ItemsPerPage;
             $scope.controlDataLoaded = true;
         };
 
@@ -161,7 +167,6 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 }
             }
         }, true);
-
 }]);
 
 Type.registerNamespace("Telerik.Sitefinity.FixedDynamicContentWidget");
@@ -203,18 +208,20 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         }
 
         var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
-        if (ctrl.listMode == 'paging') {
-            masterDefinition.AllowPaging = true;
-            masterDefinition.UseLimit = false;
-        } else if (ctrl.listMode == 'limit') {
-            masterDefinition.AllowPaging = false;
-            masterDefinition.UseLimit = true;
-        } else {
-            masterDefinition.AllowPaging = false;
-            masterDefinition.UseLimit = false;
+        switch(ctrl.listMode) {
+            case 'paging':
+                masterDefinition.AllowPaging = true;
+                masterDefinition.ItemsPerPage = ctrl.itemsPerPage;
+                break;
+            case 'limit':
+                masterDefinition.AllowPaging = false;
+                masterDefinition.ItemsPerPage = ctrl.limitCount;
+                break;
+            case 'none':
+                masterDefinition.AllowPaging = false;
+                masterDefinition.ItemsPerPage = 0;
+                break;
         }
-
-        masterDefinition.ItemsPerPage = ctrl.itemsPerPage;
     },
 
     // forces the designer to refresh the UI from the control data
