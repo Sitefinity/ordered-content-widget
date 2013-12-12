@@ -55,6 +55,7 @@
                     </li>
                     <li>
                         <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Selected %>" />
+                        ({{selectedItemsVirtualCount}})
                     </li>
                 </ul>
                 <div>

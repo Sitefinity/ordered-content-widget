@@ -31,7 +31,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         var findType = function (clrType) {
             for (var i = 0; i < $scope.dynamicTypes.length; i++) {
-                if ($scope.dynamicTypes[i].ClrType == clrType) {
+                if ($scope.dynamicTypes[i].ClrType === clrType) {
                     return $scope.dynamicTypes[i];
                 }
             }
@@ -39,7 +39,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         var findItem = function (id) {
             for (var i = 0; i < $scope.allItems.length; i++) {
-                if ($scope.allItems[i].Id == id) {
+                if ($scope.allItems[i].Id === id) {
                     return $scope.allItems[i];
                 }
             }
@@ -55,6 +55,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             selectType($scope.controlData.DynamicContentTypeName);
             DynamicContents.query({ id : $scope.selectedDynamicType.Id,  SelectedContentIds: $scope.controlData.SelectedItems }, function(data) {
                 $scope.selectedItems = data.Items;
+                $scope.selectedItemsVirtualCount = data.VirtualCount;
             });
         };
 
@@ -67,6 +68,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.toggleSelect = function (id) {
             var item = findItem(id);
             $scope.selectedItems.push(item);
+            $scope.selectedItemsVirtualCount++;
         };
 
         $scope.load = function (controlData) {
