@@ -126,7 +126,12 @@
 
         </div>
         <div>
-            2
+            <input type="radio" ng-checked="usePaging" /> 
+            <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AllowPaging %>" /></strong>
+            <br />
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, DivideTheListOnPagesUpTo %>"></asp:Literal>
+            <input type="text" ng-model="itemsPerPage" />
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsPerPage %>"></asp:Literal>
         </div>
         <div>
             3

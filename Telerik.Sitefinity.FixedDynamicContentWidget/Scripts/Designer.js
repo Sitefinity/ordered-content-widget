@@ -23,6 +23,8 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.controlDataLoaded = false;
         $scope.contentTypesLoaded = false;
 
+        
+
         // Array with all the items that are currently visible in the selector
         $scope.allItems = [];
 
@@ -34,7 +36,19 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         // Array with all the items that have been selected
         $scope.selectedItems = [];
+
+        /*
+         * The virtual count of all the items that have been selected and could be displayed
+         * given the paging constraints.
+         *
+        **/
         $scope.selectedItemsVirtualCount = 0;
+
+        // Determines whether the paging will be used in master view.
+        $scope.allowPaging = false;
+
+        // Determines the page size, if paging is enabled.
+        $scope.itemsPerPage = 20;
 
         /*
          * Finds the index of an item for a given id
@@ -98,6 +112,8 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         $scope.load = function (controlData) {
             $scope.controlData = controlData;
+            $scope.allowPaging = controlData.ControlDefinition.Views.DynamicContentMasterView.AllowPaging;
+            $scope.itemsPerPage = controlData.ControlDefinition.Views.DynamicContentMasterView.ItemsPerPage;
             $scope.controlDataLoaded = true;
         };
 
@@ -171,6 +187,10 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
 
             controlData.SelectedItems = JSON.stringify(selectedItems);
         }
+
+        controlData.ControlDefinition.Views.DynamicContentMasterView.AllowPaging = ctrl.allowPaging;
+        controlData.ControlDefinition.Views.DynamicContentMasterView.ItemsPerPage = ctrl.itemsPerPage;
+
     },
 
     // forces the designer to refresh the UI from the control data
@@ -178,9 +198,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         var controlData = this.get_controlData();
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
-        //ctrl.$apply(function () {
-            ctrl.load(controlData);
-        //});
+        ctrl.load(controlData);
     }
 };
 

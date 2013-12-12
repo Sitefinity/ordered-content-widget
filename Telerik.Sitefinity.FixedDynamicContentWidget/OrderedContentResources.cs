@@ -257,5 +257,50 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: Allow paging
+        /// </summary>
+        [ResourceEntry("AllowPaging",
+            Value = "Allow Paging",
+            Description = "phrase: Allow paging",
+            LastModified = "2013/12/12")]
+        public string AllowPaging
+        {
+            get
+            {
+                return this["AllowPaging"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Divide the list on pages up to
+        /// </summary>
+        [ResourceEntry("DivideTheListOnPagesUpTo",
+            Value = "Divide the list on pages up to",
+            Description = "phrase: Divide the list on pages up to",
+            LastModified = "2013/12/12")]
+        public string DivideTheListOnPagesUpTo
+        {
+            get
+            {
+                return this["DivideTheListOnPagesUpTo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: items per page
+        /// </summary>
+        [ResourceEntry("ItemsPerPage",
+            Value = "items per page",
+            Description = "phrase: items per page",
+            LastModified = "2013/12/12")]
+        public string ItemsPerPage
+        {
+            get
+            {
+                return this["ItemsPerPage"];
+            }
+        }
+
     }
 }
