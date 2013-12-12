@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ServiceStack.WebHost.Endpoints;
+using ServiceStack.Text;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
@@ -20,6 +21,8 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 
             appHost.Routes.Add<DynamicTypeRequest>("/fixeddynamiccontent/dynamictypes", "GET");
             appHost.Routes.Add<DynamicContentsRequest>("/fixeddynamiccontent/dynamiccontents/{TypeId}", "GET");
+
+            JsConfig.DateHandler = JsonDateHandler.ISO8601;
         }
     }
 }

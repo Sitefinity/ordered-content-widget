@@ -52,7 +52,7 @@
                             <tr ng-repeat="item in allItems">
                                 <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
                                 <td>{{ item.Title }}</td>
-                                <td>{{ item.LastModified }}</td>
+                                <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                 <td>{{ item.Author }}</td>
                                 <td><a href="{{ item.CanonicalUrl }}">View</a></td>
                             </tr>
@@ -73,11 +73,11 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody ui-sortable="{ update: foo() }" ng-model="selectedItems">
+                        <tbody ui-sortable ng-model="selectedItems">
                             <tr ng-repeat="item in selectedItems" style="cursor: move;">
                                 <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
                                 <td>{{ item.Title }}</td>
-                                <td>{{ item.LastModified }}</td>
+                                <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                 <td>{{ item.Author }}</td>
                                 <td><a href="{{ item.CanonicalUrl }}">View</a></td>
                             </tr>

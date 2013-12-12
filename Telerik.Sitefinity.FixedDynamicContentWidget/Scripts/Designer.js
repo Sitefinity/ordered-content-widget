@@ -51,10 +51,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         var loadDesignerData = function () {
             selectType($scope.controlData.DynamicContentTypeName);
             DynamicContents.query({ id : $scope.selectedDynamicType.Id,  SelectedContentIds: $scope.controlData.SelectedItems }, function(data) {
-                    $scope.selectedItems = data;                
-                //for (var i = 0; i < data.length; i++) {
-                //    $scope.selectedItems.push(data[i]);
-                //}
+                $scope.selectedItems = data;
             });
         };
 
@@ -78,18 +75,11 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             var typeId = $scope.selectedDynamicType.Id;
             if (!(typeId && typeId.length > 0)) return;
 
-            $scope.allItems = DynamicContents.query({ id: typeId });
-        }, true);
+            DynamicContents.query({ id: typeId }, function (data) {
+                $scope.allItems = data;
+            });
 
-        $scope.$watch('selectedItems', function () {
-            console.log('Selected items changed!');
-            if($scope.selectedItems[0])
-                console.log('1: ' + $scope.selectedItems[0].Title);
         }, true);
-
-        $scope.foo = function () {
-            console.log('foo called!');
-        };
 
         $scope.$watch('[controlDataLoaded, contentTypesLoaded]', function (newValue, oldValue) {
             if (newValue !== oldValue) {
