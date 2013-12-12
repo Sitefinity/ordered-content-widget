@@ -126,12 +126,20 @@
 
         </div>
         <div>
-            <input type="radio" ng-checked="usePaging" /> 
+            <input type="radio" ng-model="listMode" value="paging" name="master-mode" /> 
             <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AllowPaging %>" /></strong>
             <br />
             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, DivideTheListOnPagesUpTo %>"></asp:Literal>
             <input type="text" ng-model="itemsPerPage" />
             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsPerPage %>"></asp:Literal>
+
+            <input type="radio" ng-model="listMode" value="limit" />
+            <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, UseLimit %>" /></strong>
+            <br />
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowOnlyLimitedNumberOfItems %>"></asp:Literal>
+            <input type="text" ng-model="itemsPerPage" name="master-mode" />
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsInTotal %>"></asp:Literal>
+
         </div>
         <div>
             3

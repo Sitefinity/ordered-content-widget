@@ -302,5 +302,50 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: Use Limit
+        /// </summary>
+        [ResourceEntry("UseLimit",
+            Value = "Use Limit",
+            Description = "phrase: Use Limit",
+            LastModified = "2013/12/12")]
+        public string UseLimit
+        {
+            get
+            {
+                return this["UseLimit"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Show only limited number of items
+        /// </summary>
+        [ResourceEntry("ShowOnlyLimitedNumberOfItems",
+            Value = "Show only limited number of items",
+            Description = "phrase: Show only limited number of items",
+            LastModified = "2013/12/12/")]
+        public string ShowOnlyLimitedNumberOfItems
+        {
+            get
+            {
+                return this["ShowOnlyLimitedNumberOfItems"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: items in total
+        /// </summary>
+        [ResourceEntry("ItemsInTotal",
+            Value = "items in total",
+            Description = "phrase: items in total",
+            LastModified = "2013/12/12")]
+        public string ItemsInTotal
+        {
+            get
+            {
+                return this["ItemsInTotal"];
+            }
+        }
+
     }
 }
