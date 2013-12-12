@@ -9,6 +9,9 @@ using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using System.Web.Security;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
@@ -49,11 +52,22 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             {
                 Id = dynamicContent.Id,
                 Title = dynamicContent.GetValue<Lstring>(dynamicType.MainShortTextFieldName).Value,
-                Author = dynamicContent.Author,
+                Author = this.GetAuthorName(dynamicContent.LastModifiedBy),
                 LastModified = dynamicContent.LastModified,
                 CanonicalUrl = dynamicContent.SystemUrl
             };
         }
+
+        private string GetAuthorName(Guid authorId)
+        {
+            if (this.userManager == null)
+                this.userManager = UserManager.GetManager();
+
+            var user = this.userManager.GetUser(authorId);
+            return string.Concat(user.FirstName, " ", user.LastName);
+        }
+
+        private UserManager userManager;
 
     }
 }
