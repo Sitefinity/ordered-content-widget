@@ -39,6 +39,14 @@
                 </option>
             </select>
 
+            <p>
+                <strong>
+                    <asp:Literal ID="Literal2" runat="server" Text="<%$Resources:OrderedContentResources, WidgetHelp1 %>" />
+                </strong>
+                <br />
+                <asp:Literal ID="Literal3" runat="server" Text="<%$Resources:OrderedContentResources, WidgetHelp2 %>" />
+            </p>
+
             <div id="all-selected-tabstrip">
                 <ul>
                     <li class="k-state-active">

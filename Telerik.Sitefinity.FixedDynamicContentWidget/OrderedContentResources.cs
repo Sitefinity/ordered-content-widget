@@ -78,11 +78,11 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         }
 
         /// <summary>
-        /// phrase: List Settings
+        /// phrase: List settings
         /// </summary>
         [ResourceEntry("ListSettings",
-            Value = "List Settings",
-            Description = "phrase: List Settings",
+            Value = "List settings",
+            Description = "phrase: List settings",
             LastModified = "2013/12/12")]
         public string ListSettings
         {
@@ -93,11 +93,11 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         }
 
         /// <summary>
-        /// phrase: Single Item Settings
+        /// phrase: Single item settings
         /// </summary>
         [ResourceEntry("SingleItemSettings",
-            Value = "Single Item Settings",
-            Description = "phrase: Single Item Settings",
+            Value = "Single item settings",
+            Description = "phrase: Single item settings",
             LastModified = "2013/12/12")]
         public string SingleItemSettings
         {
@@ -224,6 +224,36 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             get
             {
                 return this["View"];
+            }
+        }
+
+        /// <summary>
+        /// Instruction on the widget; line 1
+        /// </summary>
+        [ResourceEntry("WidgetHelp1",
+            Value = "Select items you want to be displayed and order them manually",
+            Description = "Instruction on the widget; line 1",
+            LastModified = "2013/12/12")]
+        public string WidgetHelp1
+        {
+            get
+            {
+                return this["WidgetHelp1"];
+            }
+        }
+
+        /// <summary>
+        /// Instruction on the widget; line 2
+        /// </summary>
+        [ResourceEntry("WidgetHelp2",
+            Value = "You can change the sorting of items to automatic in the List settings tab",
+            Description = "Instruction on the widget; line 2",
+            LastModified = "2013/12/12")]
+        public string WidgetHelp2
+        {
+            get
+            {
+                return this["WidgetHelp2"];
             }
         }
 
