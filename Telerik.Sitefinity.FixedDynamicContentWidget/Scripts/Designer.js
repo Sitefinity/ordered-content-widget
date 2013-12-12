@@ -23,31 +23,37 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.controlDataLoaded = false;
         $scope.contentTypesLoaded = false;
 
+        // Array with all the items that are currently visible in the selector
         $scope.allItems = [];
+
+        /*
+         * The virtual count of all the items that could be displayed given the current
+         * filter expressions.
+        **/
         $scope.allItemsVirtualCount = 0;
 
+        // Array with all the items that have been selected
         $scope.selectedItems = [];
         $scope.selectedItemsVirtualCount = 0;
 
-        var findType = function (clrType) {
-            for (var i = 0; i < $scope.dynamicTypes.length; i++) {
-                if ($scope.dynamicTypes[i].ClrType === clrType) {
-                    return $scope.dynamicTypes[i];
+        /*
+         * Finds the index of an item for a given id
+         * within a specified collection.
+        **/
+        var findIndex = function (comparer, collection) {
+            for (var i = 0; i < collection.length; i++) {
+                if(comparer(collection[i])) {
+                    return i;
                 }
             }
-        };
-
-        var findItem = function (id) {
-            for (var i = 0; i < $scope.allItems.length; i++) {
-                if ($scope.allItems[i].Id === id) {
-                    return $scope.allItems[i];
-                }
-            }
+            return -1;
         };
 
         var selectType = function (clrType) {
             if (clrType) {
-                $scope.selectedDynamicType = findType(clrType);
+                $scope.selectedDynamicType = $scope.dynamicTypes[findIndex(function(item) {
+                    return item.ClrType === clrType;
+                }, $scope.dynamicTypes)];
             }
         };
 
@@ -59,16 +65,35 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             });
         };
 
+        // Selects an item
+        var selectItem = function (id) {
+            var item = $scope.allItems[findIndex(function (item) {
+                return item.Id === id;
+            }, $scope.allItems)];
+            $scope.selectedItems.push(item);
+            $scope.selectedItemsVirtualCount++;
+        };
+
+        // Unselects an item
+        var unselectItem = function (id) {
+            $scope.selectedItems.splice(findIndex(function (item) {
+                return item.Id === id;
+            }, $scope.selectedItems), 1);
+            $scope.selectedItemsVirtualCount--;
+        };
+
         $scope.selectedDynamicType = "";
 
         $scope.dynamicTypes = DynamicTypes.query(function () {
             $scope.contentTypesLoaded = true;
         });
 
+        /*
+         * Toggles the item into selected or unselected state
+         * depending on it's current state.
+        **/
         $scope.toggleSelect = function (id) {
-            var item = findItem(id);
-            $scope.selectedItems.push(item);
-            $scope.selectedItemsVirtualCount++;
+            $scope.isSelected(id) ? unselectItem(id) : selectItem(id);
         };
 
         $scope.load = function (controlData) {
