@@ -76,6 +76,18 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.controlDataLoaded = true;
         };
 
+        /*
+         * Checks whether the item with specified id
+         * has been selected. Returns true if selected;
+         * otherwise false.
+        **/
+        $scope.isSelected = function (id) {
+            for (var i = 0; i < $scope.selectedItems.length; i++) {
+                if ($scope.selectedItems[i].Id === id) return true;
+            }
+            return false;
+        };
+
         $scope.$watch('selectedDynamicType', function () {
             var typeId = $scope.selectedDynamicType.Id;
             if (!(typeId && typeId.length > 0)) return;

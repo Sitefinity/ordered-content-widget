@@ -77,11 +77,15 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in allItems">
-                                <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
+                                <td><input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
                                 <td>{{ item.Title }}</td>
                                 <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                 <td>{{ item.Author }}</td>
-                                <td><a href="{{ item.CanonicalUrl }}">View</a></td>
+                                <td>
+                                    <a href="{{ item.CanonicalUrl }}">
+                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,13 +109,13 @@
                         </thead>
                         <tbody ui-sortable ng-model="selectedItems">
                             <tr ng-repeat="item in selectedItems" style="cursor: move;">
-                                <td ng-click="toggleSelect(item.Id)"><input type="checkbox" /></td>
+                                <td><input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
                                 <td>{{ item.Title }}</td>
                                 <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                 <td>{{ item.Author }}</td>
                                 <td>
                                     <a href="{{ item.CanonicalUrl }}">
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
+                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
                                     </a>
                                 </td>
                             </tr>
