@@ -5,6 +5,7 @@ using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Abstractions.VirtualPath.Configuration;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.FixedDynamicContentWidget.Configuration;
 using Telerik.Sitefinity.FixedDynamicContentWidget.Services;
 using Telerik.Sitefinity.Services;

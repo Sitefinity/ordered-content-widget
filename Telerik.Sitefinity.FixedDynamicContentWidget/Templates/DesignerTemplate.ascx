@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" %>
 <%@ Register Assembly="Telerik.Sitefinity" Namespace="Telerik.Sitefinity.Web.UI" TagPrefix="sf" %>
 <%@ Register TagPrefix="sf" Namespace="Telerik.Sitefinity.Web.UI.PublicControls" Assembly="Telerik.Sitefinity" %>
+<%@ Register TagPrefix="sf" Namespace="Telerik.Sitefinity.Web.UI.ControlDesign" Assembly="Telerik.Sitefinity" %>
 
 <sf:JavaScriptEmbedControl runat="server" ID="JavaScriptEmbedControl3" ScriptEmbedPosition="Head" Url="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
 <sf:JavaScriptEmbedControl runat="server" ID="angularLink" ScriptEmbedPosition="Head" Url="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js" />
@@ -13,6 +14,13 @@
     <sf:ResourceFile JavaScriptLibrary="jQuery" />
     <sf:ResourceFile Name="Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_common_min.css" Static="True" />
 </sf:ResourceLinks>
+
+<telerik:RadWindowManager ID="windowManager" runat="server" Height="100%" Width="100%"
+    Behaviors="None" Skin="Sitefinity" ShowContentDuringLoad="false" VisibleStatusBar="false">
+    <windows>
+        <telerik:RadWindow ID="widgetEditorDialog" runat="server" ReloadOnShow="true" Modal="true" />
+    </windows>
+</telerik:RadWindowManager>
 
 <div ng-app="DesignerApp" ng-controller="DesignerCtrl">
 
@@ -160,7 +168,7 @@
                 <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SortItems %>" />
             </strong>
             <br />
-            <select ng-model="sortMode">
+            <select ng-model="sortMode" ng-init="sortMode='Manual'">
                 <option value="NewestFirst">
                     <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NewestFirst %>" /></option>
                 <option value="OldestFirst">
@@ -172,6 +180,8 @@
                 <option value="Manual">
                     <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AsManuallyOrdered %>" /></option>
             </select>
+
+            <sf:CreateEditTemplateControl runat="server" ID="listTemplates" ClientIDMode="Static" Title="<%$Resources:OrderedContentResources,ListTemplate %>"></sf:CreateEditTemplateControl>
 
         </div>
         <div>

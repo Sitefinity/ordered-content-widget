@@ -66,6 +66,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\Reference Assemblies\Telerik\OpenAccess\Telerik.OpenAccess.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Web.UI, Version=2013.3.1114.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Work\CMS\Sitefinity 4.0\Code Base\SitefinityWebApp\bin\Telerik.Web.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\FixedDynamicContentConfig.cs" />
@@ -107,6 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\lib\sortable.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\DetailTemplate.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\MasterTemplate.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

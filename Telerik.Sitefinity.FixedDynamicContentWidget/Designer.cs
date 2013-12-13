@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ControlDesign;
+using Telerik.Web.UI;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget
 {
@@ -34,6 +36,33 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
 
         #endregion
 
+        #region Control References
+
+        /// <summary>
+        /// Gets the templates control for add/edit list templates.
+        /// </summary>
+        /// <value>The templates control for add/edit list templates.</value>
+        protected virtual CreateEditTemplateControl ListTemplates
+        {
+            get
+            {
+                return this.Container.GetControl<CreateEditTemplateControl>("listTemplates", true);
+            }
+        }
+
+        /// <summary>
+        /// Gets the correct instance of RadWindowManager
+        /// </summary>
+        protected virtual RadWindowManager RadWindowManager
+        {
+            get
+            {
+                return this.Container.GetControl<RadWindowManager>("windowManager", true);
+            }
+        }
+
+        #endregion
+
         #region Public and overridden methods
 
         /// <summary>
@@ -42,7 +71,8 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         /// <param name="container">The container.</param>
         protected override void InitializeControls(GenericContainer container)
         {
-            // do nothing for now
+            this.ListTemplates.DesignedMasterViewType = typeof(DynamicContentViewMaster).FullName;
+            this.ListTemplates.WindowManager = this.RadWindowManager;
         }
 
         public override IEnumerable<ScriptReference> GetScriptReferences()

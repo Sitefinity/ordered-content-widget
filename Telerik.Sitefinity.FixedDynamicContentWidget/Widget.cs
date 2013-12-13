@@ -15,6 +15,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
     {
         public enum SortModes
         {
+            None,
             NewestFirst,
             OldestFirst,
             AlphabetAsc,
@@ -41,20 +42,6 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         {
             get;
             set;
-        }
-
-        public override string DefaultMasterTemplateKey
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(base.DefaultMasterTemplateKey))
-                    base.DefaultMasterTemplateKey = "eeec4e9a-07b6-6924-b3bf-ff00006ffe9b"; // TODO: this is a bug, fix it
-                return base.DefaultMasterTemplateKey;
-            }
-            set
-            {
-                base.DefaultMasterTemplateKey = value;
-            }
         }
 
         protected override void InitializeMasterView()

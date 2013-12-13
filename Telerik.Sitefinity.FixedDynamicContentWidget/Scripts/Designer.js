@@ -85,10 +85,13 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         var loadDesignerData = function () {
             selectType($scope.controlData.DynamicContentTypeName);
-            DynamicContents.query({ id : $scope.selectedDynamicType.Id,  SelectedContentIds: $scope.controlData.SelectedItems }, function(data) {
-                $scope.selectedItems = data.Items;
-                $scope.selectedItemsVirtualCount = data.VirtualCount;
-            });
+            if ($scope.selectedDynamicType.Id) {
+                DynamicContents.query({ id: $scope.selectedDynamicType.Id, SelectedContentIds: $scope.controlData.SelectedItems }, function (data) {
+                    $scope.selectedItems = data.Items;
+                    $scope.selectedItemsVirtualCount = data.VirtualCount;
+                    dialogBase.resizeToContent();
+                });
+            }
         };
 
         // Selects an item
@@ -137,12 +140,12 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.limitCount = 20;
             }
 
-            if (controlData.SortMode) {
+            if (controlData.SortMode != 'None') {
                 $scope.sortMode = controlData.SortMode;
             } else {
-                $scope.sortMode = 'manual';
+                $scope.sortMode = 'Manual';
             }
-            
+
             $scope.controlDataLoaded = true;
         };
 
@@ -192,6 +195,10 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         $('#tabstrip').kendoTabStrip();
         $('#all-selected-tabstrip').kendoTabStrip();
 
+        var controlData = this.get_controlData();
+        this.getListTemplateControl().set_parentDesigner(this);
+        this.getListTemplateControl().set_currentView(controlData.ControlDefinition.Views.DynamicContentMasterView);
+
         Telerik.Sitefinity.FixedDynamicContentWidget.Designer.callBaseMethod(this, 'initialize');
     },
     dispose: function () {
@@ -232,15 +239,24 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
                 break;
         }
 
+        masterDefinition.TemplateKey = this.getListTemplateControl().get_currentView().TemplateKey;
+
         controlData.SortMode = ctrl.sortMode;
     },
 
     // forces the designer to refresh the UI from the control data
     refreshUI: function () {
         var controlData = this.get_controlData();
+        var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
+
+        this.getListTemplateControl()._getFieldControl('TemplateKey').set_value(masterDefinition.TemplateKey);
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
         ctrl.load(controlData);
+    },
+
+    getListTemplateControl: function () {
+        return $find('listTemplates');
     }
 };
 

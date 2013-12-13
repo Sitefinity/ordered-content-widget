@@ -467,5 +467,20 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: List template
+        /// </summary>
+        [ResourceEntry("ListTemplate",
+            Value = "List template",
+            Description = "phrase: List template",
+            LastModified = "2013/12/13")]
+        public string ListTemplate
+        {
+            get
+            {
+                return this["ListTemplate"];
+            }
+        }
+
     }
 }
