@@ -51,6 +51,18 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         }
 
         /// <summary>
+        /// Gets the templates control for add/edit single item templates.
+        /// </summary>
+        /// <value>The templates control for add/edit single item templates.</value>
+        protected virtual CreateEditTemplateControl SingleItemTemplates
+        {
+            get
+            {
+                return this.Container.GetControl<CreateEditTemplateControl>("singleItemTemplates", true);
+            }
+        }
+
+        /// <summary>
         /// Gets the correct instance of RadWindowManager
         /// </summary>
         protected virtual RadWindowManager RadWindowManager
@@ -73,6 +85,19 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         {
             this.ListTemplates.DesignedMasterViewType = typeof(DynamicContentViewMaster).FullName;
             this.ListTemplates.WindowManager = this.RadWindowManager;
+            this.SingleItemTemplates.DesignedMasterViewType = typeof(DynamicContentViewDetail).FullName;
+            this.SingleItemTemplates.WindowManager = this.RadWindowManager;
+        }
+
+        public override IEnumerable<ScriptDescriptor> GetScriptDescriptors()
+        {
+            var descriptors = new List<ScriptDescriptor>(base.GetScriptDescriptors());
+            ScriptControlDescriptor descriptor = descriptors.Last() as ScriptControlDescriptor;
+
+            descriptor.AddComponentProperty("listTemplateControl", this.ListTemplates.ClientID);
+            descriptor.AddComponentProperty("singleItemTemplateControl", this.SingleItemTemplates.ClientID);
+
+            return descriptors;
         }
 
         public override IEnumerable<ScriptReference> GetScriptReferences()

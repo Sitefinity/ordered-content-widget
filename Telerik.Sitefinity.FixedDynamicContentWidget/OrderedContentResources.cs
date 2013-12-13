@@ -482,5 +482,20 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: Single Item template
+        /// </summary>
+        [ResourceEntry("SingleItemTemplate",
+            Value = "Single item template",
+            Description = "phrase: Single Item template",
+            LastModified = "2013/12/13")]
+        public string SingleItemTemplate
+        {
+            get
+            {
+                return this["SingleItemTemplate"];
+            }
+        }
+
     }
 }

@@ -185,6 +185,8 @@ Type.registerNamespace("Telerik.Sitefinity.FixedDynamicContentWidget");
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer = function (element) {
     Telerik.Sitefinity.FixedDynamicContentWidget.Designer.initializeBase(this, [element]);
+    this._listTemplateControl = null;
+    this._singleItemTemplateControl = null;
 };
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
@@ -196,8 +198,12 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         $('#all-selected-tabstrip').kendoTabStrip();
 
         var controlData = this.get_controlData();
-        this.getListTemplateControl().set_parentDesigner(this);
-        this.getListTemplateControl().set_currentView(controlData.ControlDefinition.Views.DynamicContentMasterView);
+
+        this.get_listTemplateControl().set_parentDesigner(this);
+        this.get_listTemplateControl().set_currentView(controlData.ControlDefinition.Views.DynamicContentMasterView);
+
+        this.get_singleItemTemplateControl().set_parentDesigner(this);
+        this.get_singleItemTemplateControl().set_currentView(controlData.ControlDefinition.Views.DynamicContentDetailView);
 
         Telerik.Sitefinity.FixedDynamicContentWidget.Designer.callBaseMethod(this, 'initialize');
     },
@@ -224,6 +230,8 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         }
 
         var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
+        var detailDefinition = controlData.ControlDefinition.Views.DynamicContentDetailView;
+        
         switch(ctrl.listMode) {
             case 'paging':
                 masterDefinition.AllowPaging = true;
@@ -239,7 +247,8 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
                 break;
         }
 
-        masterDefinition.TemplateKey = this.getListTemplateControl().get_currentView().TemplateKey;
+        masterDefinition.TemplateKey = this.get_listTemplateControl().get_currentView().TemplateKey;
+        detailDefinition.TemplateKey = this.get_singleItemTemplateControl().get_currentView().TemplateKey;
 
         controlData.SortMode = ctrl.sortMode;
     },
@@ -248,15 +257,29 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
     refreshUI: function () {
         var controlData = this.get_controlData();
         var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
+        var detailDefinition = controlData.ControlDefinition.Views.DynamicContentDetailView;
 
-        this.getListTemplateControl()._getFieldControl('TemplateKey').set_value(masterDefinition.TemplateKey);
+        this.get_listTemplateControl()._getFieldControl('TemplateKey').set_value(masterDefinition.TemplateKey);
+        this.get_singleItemTemplateControl()._getFieldControl('TemplateKey').set_value(detailDefinition.TemplateKey);
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
         ctrl.load(controlData);
     },
 
-    getListTemplateControl: function () {
-        return $find('listTemplates');
+    get_listTemplateControl: function() {
+        return this._listTemplateControl;
+    },
+
+    set_listTemplateControl: function(value) {
+        this._listTemplateControl = value;
+    },
+
+    get_singleItemTemplateControl: function() {
+        return this._singleItemTemplateControl;
+    },
+    
+    set_singleItemTemplateControl: function(value) {
+        this._singleItemTemplateControl = value;
     }
 };
 

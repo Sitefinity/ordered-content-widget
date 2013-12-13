@@ -181,11 +181,11 @@
                     <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AsManuallyOrdered %>" /></option>
             </select>
 
-            <sf:CreateEditTemplateControl runat="server" ID="listTemplates" ClientIDMode="Static" Title="<%$Resources:OrderedContentResources,ListTemplate %>"></sf:CreateEditTemplateControl>
+            <sf:CreateEditTemplateControl runat="server" ID="listTemplates" ClientIDMode="Predictable" Title="<%$Resources:OrderedContentResources,ListTemplate %>"></sf:CreateEditTemplateControl>
 
         </div>
         <div>
-            3
+            <sf:CreateEditTemplateControl runat="server" ID="singleItemTemplates" ClientIDMode="Predictable" Title="<%$Resources:OrderedContentResources,SingleItemTemplate %>"></sf:CreateEditTemplateControl>
         </div>
     </div>
 
