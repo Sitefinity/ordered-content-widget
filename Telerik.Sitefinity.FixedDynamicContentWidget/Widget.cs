@@ -13,6 +13,15 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
     [PropertyEditorTitle("Content items")]
     public class Widget : DynamicContentView
     {
+        public enum SortModes
+        {
+            NewestFirst,
+            OldestFirst,
+            AlphabetAsc,
+            AlphabetDesc,
+            Manual
+        }
+
         [TypeConverter(typeof(CollectionJsonTypeConverter<Guid>))]
         public IList<Guid> SelectedItems
         {
@@ -26,6 +35,12 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             {
                 this.selectedItems = value;
             }
+        }
+
+        public SortModes SortMode
+        {
+            get;
+            set;
         }
 
         public override string DefaultMasterTemplateKey
@@ -49,14 +64,30 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
                 this.MasterViewControl.SourceItemsIds = this.RelatedItemsIds;
             }
 
-            var items = new List<DynamicContent>();
-            foreach (var itemId in this.SelectedItems)
+            switch (this.SortMode)
             {
-                items.Add(this.DynamicManager.GetDataItem(this.DynamicContentType, itemId));
+                case SortModes.NewestFirst:
+                    this.MasterViewDefinition.SortExpression = "PublicationDate ASC";
+                    break;
+                case SortModes.OldestFirst:
+                    this.MasterViewDefinition.SortExpression = "PublicationDate DESC";
+                    break;
+                case SortModes.AlphabetAsc:
+                    this.MasterViewDefinition.SortExpression = "Title ASC"; // TODO: this is a bug, title is hard-coded
+                    break;
+                case SortModes.AlphabetDesc:
+                    this.MasterViewDefinition.SortExpression = "Title DESC"; // TODO: this is a bug, title is hard-coded
+                    break;
+                case SortModes.Manual:
+                    this.MasterViewDefinition.SortExpression = "";
+                    var items = new List<DynamicContent>();
+                    foreach (var itemId in this.SelectedItems)
+                    {
+                        items.Add(this.DynamicManager.GetDataItem(this.DynamicContentType, itemId));
+                    }
+                    this.MasterViewControl.DataSource = items.AsQueryable();
+                    break;
             }
-
-
-            this.MasterViewControl.DataSource = items.AsQueryable();
 
             this.MasterViewControl.TemplateKey = string.IsNullOrEmpty(this.MasterViewDefinition.TemplateKey) ? this.DefaultMasterTemplateKey : this.MasterViewDefinition.TemplateKey;
             this.MasterViewControl.DynamicContentType = this.DynamicContentType;

@@ -59,6 +59,9 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         // Determines the limit of items to show if use limit mode
         $scope.limitCount = 20;
 
+        // Determines the list sort mode
+        $scope.sortMode = 'manual';
+
         /*
          * Finds the index of an item for a given id
          * within a specified collection.
@@ -134,6 +137,12 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.limitCount = 20;
             }
 
+            if (controlData.SortMode) {
+                $scope.sortMode = controlData.SortMode;
+            } else {
+                $scope.sortMode = 'manual';
+            }
+            
             $scope.controlDataLoaded = true;
         };
 
@@ -222,6 +231,8 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
                 masterDefinition.ItemsPerPage = 0;
                 break;
         }
+
+        controlData.SortMode = ctrl.sortMode;
     },
 
     // forces the designer to refresh the UI from the control data

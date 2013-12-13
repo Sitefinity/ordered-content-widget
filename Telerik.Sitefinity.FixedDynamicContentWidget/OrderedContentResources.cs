@@ -377,5 +377,95 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: Sort items
+        /// </summary>
+        [ResourceEntry("SortItems",
+            Value = "Sort items",
+            Description = "phrase: Sort items",
+            LastModified = "2013/12/13")]
+        public string SortItems
+        {
+            get
+            {
+                return this["SortItems"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: As manually ordered
+        /// </summary>
+        [ResourceEntry("AsManuallyOrdered",
+            Value = "As manually ordered",
+            Description = "phrase: As manually ordered",
+            LastModified = "2013/12/13")]
+        public string AsManuallyOrdered
+        {
+            get
+            {
+                return this["AsManuallyOrdered"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Newest first
+        /// </summary>
+        [ResourceEntry("NewestFirst",
+            Value = "Newest first",
+            Description = "phrase: Newest first",
+            LastModified = "2013/12/13")]
+        public string NewestFirst
+        {
+            get
+            {
+                return this["NewestFirst"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Oldest first
+        /// </summary>
+        [ResourceEntry("OldestFirst",
+            Value = "Oldest first",
+            Description = "phrase: Oldest first",
+            LastModified = "2013/12/13")]
+        public string OldestFirst
+        {
+            get
+            {
+                return this["OldestFirst"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: By Title (A-Z)
+        /// </summary>
+        [ResourceEntry("ByTitleAz",
+            Value = "By Title (A-Z)",
+            Description = "phrase: By Title (A-Z)",
+            LastModified = "2013/12/13")]
+        public string ByTitleAz
+        {
+            get
+            {
+                return this["ByTitleAz"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: By Title (Z-A)
+        /// </summary>
+        [ResourceEntry("ByTitleZa",
+            Value = "By Title (Z-A)",
+            Description = "phrase: By Title (Z-A)",
+            LastModified = "2013/12/13")]
+        public string ByTitleZa
+        {
+            get
+            {
+                return this["ByTitleZa"];
+            }
+        }
+
     }
 }
