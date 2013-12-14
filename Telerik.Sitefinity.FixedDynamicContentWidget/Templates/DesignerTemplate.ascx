@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" %>
-<%@ Register Assembly="Telerik.Sitefinity" Namespace="Telerik.Sitefinity.Web.UI" TagPrefix="sf" %>
+<%@ Register TagPrefix="sf" Namespace="Telerik.Sitefinity.Web.UI" Assembly="Telerik.Sitefinity" %>
 <%@ Register TagPrefix="sf" Namespace="Telerik.Sitefinity.Web.UI.PublicControls" Assembly="Telerik.Sitefinity" %>
 <%@ Register TagPrefix="sf" Namespace="Telerik.Sitefinity.Web.UI.ControlDesign" Assembly="Telerik.Sitefinity" %>
 
@@ -47,6 +47,26 @@
                     <asp:Literal ID="Literal1" runat="server" Text="<%$Resources:OrderedContentResources, ChooseContentType %>" />
                 </option>
             </select>
+
+            <div style="margin:10px 0;">
+
+                <a href="#" ng-click="showFilters = !showFilters">
+                    <strong>
+                        <asp:Literal ID="Literal4" runat="server" Text="<%$Resources:OrderedContentResources, FilterItems %>" />
+                    </strong>
+                    <i>(<asp:Literal ID="Literal5" runat="server" Text="<%$Resources:OrderedContentResources, ByCategoryTag %>" />)</i>
+                </a>
+
+                <div ng-show="showFilters">
+                    <input type="checkbox" ng-model="filterByDates" />
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ByDates %>" />
+                    {{ dateRangeFilter.Text }}
+                    <a href="#" ng-show="filterByDates" ng-click="showDateRangeSelector = true">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Select %>" />
+                    </a>
+                </div>
+
+            </div>
 
             <div ng-hide="sortMode != 'Manual'">
                 <p>
@@ -207,8 +227,19 @@
     </div>
     </div>
 
-    <div id="page-selector" ng-show="showPageSelector">
+    <div ng-show="showPageSelector">
         <sf:PageSelector id="pageSelector" runat="server"></sf:PageSelector>
+    </div>
+
+    <div ng-show="showDateRangeSelector">
+        <sf:DateRangeSelector id="dateRangeSelector" runat="server"></sf:DateRangeSelector>
+        <a href="#" ng-click="selectDateRangeFilter()">
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Done %>" />
+        </a>
+        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Or %>" />
+        <a href="#" ng-click="showDateRangeSelector = false">
+            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Cancel %>" />
+        </a>
     </div>
 
 </div>

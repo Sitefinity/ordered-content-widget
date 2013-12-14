@@ -28,7 +28,8 @@ designerApp.factory('Page', ['$resource',
 var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 'Page', 
     function ($scope, DynamicTypes, DynamicContents, Page) {
 
-        var pageSelector = null;
+        var pageSelector = null,
+            dateRangeSelector = null;
 
         $scope.controlData = {};
         $scope.controlDataLoaded = false;
@@ -77,6 +78,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.showDesigner = function () {
 
             if ($scope.showPageSelector) return false;
+            if ($scope.showDateRangeSelector) return false;
 
             return true;
         };
@@ -84,6 +86,16 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.detailPageMode = 'auto';
 
         $scope.detailsPage = null;
+
+        $scope.showFilters = false;
+
+        $scope.filterByDates = false;
+        $scope.showDateRangeSelector = false;
+        $scope.dateRangeFilter = null;
+        $scope.selectDateRangeFilter = function () {
+            $scope.dateRangeFilter = dateRangeSelector.get_value();
+            $scope.showDateRangeSelector = false;
+        };
 
         /*
          * Finds the index of an item for a given id
@@ -155,11 +167,15 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.isSelected(id) ? unselectItem(id) : selectItem(id);
         };
 
-        $scope.load = function (controlData, _pageSelector) {
+        $scope.load = function (controlData, _pageSelector, _dateRangeSelector) {
 
             if (!pageSelector) {
-                    pageSelector = _pageSelector;
-                    pageSelector.add_doneClientSelection(pageSelected);
+                pageSelector = _pageSelector;
+                pageSelector.add_doneClientSelection(pageSelected);
+            }
+
+            if (!dateRangeSelector) {
+                dateRangeSelector = _dateRangeSelector;
             }
 
             $scope.controlData = controlData;
@@ -234,6 +250,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer = function (element) {
     this._listTemplateControl = null;
     this._singleItemTemplateControl = null;
     this._pageSelector = null;
+    this._dateRangeSelector = null;
 };
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
@@ -316,7 +333,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         this.get_singleItemTemplateControl()._getFieldControl('TemplateKey').set_value(detailDefinition.TemplateKey);
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
-        ctrl.load(controlData, this.get_pageSelector());
+        ctrl.load(controlData, this.get_pageSelector(), this.get_dateRangeSelector());
     },
 
     get_listTemplateControl: function() {
@@ -341,7 +358,16 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
 
     set_pageSelector: function (value) {
         this._pageSelector = value;
+    },
+
+    get_dateRangeSelector: function () {
+        return this._dateRangeSelector;
+    },
+
+    set_dateRangeSelector: function (value) {
+        this._dateRangeSelector = value;
     }
+
 };
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer.registerClass('Telerik.Sitefinity.FixedDynamicContentWidget.Designer', Telerik.Sitefinity.Web.UI.ControlDesign.ControlDesignerBase);

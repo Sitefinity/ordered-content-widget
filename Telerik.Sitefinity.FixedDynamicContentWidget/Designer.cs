@@ -84,6 +84,17 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// Gets the instance of the date range selector.
+        /// </summary>
+        protected virtual DateRangeSelector DateRangeSelector
+        {
+            get
+            {
+                return this.Container.GetControl<DateRangeSelector>("dateRangeSelector", true);
+            }
+        }
+
         #endregion
 
         #region Public and overridden methods
@@ -108,6 +119,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             descriptor.AddComponentProperty("listTemplateControl", this.ListTemplates.ClientID);
             descriptor.AddComponentProperty("singleItemTemplateControl", this.SingleItemTemplates.ClientID);
             descriptor.AddComponentProperty("pageSelector", this.PageSelector.ClientID);
+            descriptor.AddComponentProperty("dateRangeSelector", this.DateRangeSelector.ClientID);
 
             return descriptors;
         }

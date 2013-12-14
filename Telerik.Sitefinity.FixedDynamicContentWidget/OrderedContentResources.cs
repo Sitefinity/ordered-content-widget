@@ -572,5 +572,110 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: Filter items
+        /// </summary>
+        [ResourceEntry("FilterItems",
+            Value = "Filter items",
+            Description = "phrase: Filter items",
+            LastModified = "2013/12/14")]
+        public string FilterItems
+        {
+            get
+            {
+                return this["FilterItems"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: by category, tag...
+        /// </summary>
+        [ResourceEntry("ByCategoryTag",
+            Value = "by category, tag...",
+            Description = "phrase: by category, tag...",
+            LastModified = "2013/12/14")]
+        public string ByCategoryTag
+        {
+            get
+            {
+                return this["ByCategoryTag"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: by Dates...
+        /// </summary>
+        [ResourceEntry("ByDates",
+            Value = "by Dates...",
+            Description = "phrase: by Dates...",
+            LastModified = "2013/12/14")]
+        public string ByDates
+        {
+            get
+            {
+                return this["ByDates"];
+            }
+        }
+
+        /// <summary>
+        /// word: Select
+        /// </summary>
+        [ResourceEntry("Select",
+            Value = "Select",
+            Description = "word: Select",
+            LastModified = "2013/12/14")]
+        public string Select
+        {
+            get
+            {
+                return this["Select"];
+            }
+        }
+
+        /// <summary>
+        /// word: Done
+        /// </summary>
+        [ResourceEntry("Done",
+            Value = "Done",
+            Description = "word: Done",
+            LastModified = "2013/12/14")]
+        public string Done
+        {
+            get
+            {
+                return this["Done"];
+            }
+        }
+
+        /// <summary>
+        /// word: or
+        /// </summary>
+        [ResourceEntry("Or",
+            Value = "or",
+            Description = "word: or",
+            LastModified = "2013/12/14")]
+        public string Or
+        {
+            get
+            {
+                return this["Or"];
+            }
+        }
+
+        /// <summary>
+        /// word: Cancel
+        /// </summary>
+        [ResourceEntry("Cancel",
+            Value = "Cancel",
+            Description = "word: Cancel",
+            LastModified = "2013/12/14")]
+        public string Cancel
+        {
+            get
+            {
+                return this["Cancel"];
+            }
+        }
+
     }
 }
