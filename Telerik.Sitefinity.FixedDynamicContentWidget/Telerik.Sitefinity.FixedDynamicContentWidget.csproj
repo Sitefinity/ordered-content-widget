@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Configuration\FixedDynamicContentConfig.cs" />
     <Compile Include="Designer.cs" />
+    <Compile Include="GenericTemplate.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="OrderedContentResources.cs" />
     <Compile Include="Services\DynamicContentsRequest.cs" />

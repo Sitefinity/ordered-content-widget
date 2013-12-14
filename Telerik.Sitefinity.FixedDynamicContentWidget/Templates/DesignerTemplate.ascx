@@ -58,46 +58,11 @@
                     </a>
 
                     <div ng-show="showFilters">
-
                         <div ng-non-bindable>
-
-                        <sf:FilterSelector ID="filterSelector" runat="server" AllowMultipleSelection="true" ItemsContainerTag="ul"
-                            ItemTag="li" ItemsContainerCssClass="sfCheckListBox sfExpandedPropertyDetails" DisabledTextCssClass="sfTooltip">
-                            <items>
-                        <sf:FilterSelectorItem runat="server" Text="<%$Resources:Labels, ByCategories %>"
-                            GroupLogicalOperator="AND" ItemLogicalOperator="OR" ConditionOperator="Contains"
-                            QueryDataName="Categories" QueryFieldName="Category" QueryFieldType="System.Guid">
-                            <SelectorResultView>
-                                <sf:HierarchicalTaxonSelectorResultView runat="server" WebServiceUrl="~/Sitefinity/Services/Taxonomies/HierarchicalTaxon.svc"
-                                    AllowMultipleSelection="true">
-                                </sf:HierarchicalTaxonSelectorResultView>
-                            </SelectorResultView>
-                        </sf:FilterSelectorItem>
-                        <sf:FilterSelectorItem runat="server" Text="<%$Resources:Labels, ByTags %>"
-                            GroupLogicalOperator="AND" ItemLogicalOperator="OR" ConditionOperator="Contains"
-                            QueryDataName="Tags" QueryFieldName="Tags" QueryFieldType="System.Guid">
-                            <SelectorResultView>
-                                <sf:FlatTaxonSelectorResultView runat="server" WebServiceUrl="~/Sitefinity/Services/Taxonomies/FlatTaxon.svc"
-                                    AllowMultipleSelection="true">
-                                </sf:FlatTaxonSelectorResultView>
-                            </SelectorResultView>
-                        </sf:FilterSelectorItem>
-                        <sf:FilterSelectorItem runat="server" Text="<%$Resources:Labels, ByDates %>"
-                            GroupLogicalOperator="AND" ItemLogicalOperator="AND" 
-                            QueryDataName="Dates" QueryFieldName="PublicationDate" QueryFieldType="System.DateTime"
-                            CollectionTranslatorDelegate="_translateQueryItems" 
-                            CollectionBuilderDelegate="_buildQueryItems">
-                            <SelectorResultView>
-                                <sf:DateRangeSelectorResultView runat="server" SelectorDateRangesTitle="<%$Resources:Labels, DisplayNewsPublishedIn %>">
-                                </sf:DateRangeSelectorResultView>
-                            </SelectorResultView>
-                        </sf:FilterSelectorItem>
-                    </items>
-                        </sf:FilterSelector>
-                            </div>
-
+                            <asp:PlaceHolder ID="filterSelectorPlaceholder" runat="server">
+                            </asp:PlaceHolder>
+                        </div>
                         <a href="#" ng-click="applyFilter()">Apply filter</a>
-
                     </div>
 
                 </div>

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ControlDesign;
 using Telerik.Web.UI;
@@ -88,11 +91,19 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         /// <summary>
         /// Gets the instance of the filter selector
         /// </summary>
-        protected virtual FilterSelector FilterSelector
+        //protected virtual FilterSelector FilterSelector
+        //{
+        //    get
+        //    {
+        //        return this.Container.GetControl<FilterSelector>("filterSelector", true);
+        //    }
+        //}
+
+        protected virtual PlaceHolder FilterSelectorPlaceholder
         {
             get
             {
-                return this.Container.GetControl<FilterSelector>("filterSelector", true);
+                return this.Container.GetControl<PlaceHolder>("filterSelectorPlaceholder", true);
             }
         }
 
@@ -111,8 +122,82 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             this.SingleItemTemplates.DesignedMasterViewType = typeof(DynamicContentViewDetail).FullName;
             this.SingleItemTemplates.WindowManager = this.RadWindowManager;
 
-            this.FilterSelector.SetTaxonomyId(Designer.CategoriesQueryDataName, TaxonomyManager.CategoriesTaxonomyId);
-            this.FilterSelector.SetTaxonomyId(Designer.TagsQueryDataName, TaxonomyManager.TagsTaxonomyId);
+            this.BuildFilterSelector();
+
+            //this.FilterSelector.SetTaxonomyId(Designer.CategoriesQueryDataName, TaxonomyManager.CategoriesTaxonomyId);
+            //this.FilterSelector.SetTaxonomyId(Designer.TagsQueryDataName, TaxonomyManager.TagsTaxonomyId);
+        }
+
+        private void BuildFilterSelector()
+        {
+            this.filterSelector = new FilterSelector()
+            {
+                AllowMultipleSelection = true,
+                ItemsContainerTag = "ul",
+                ItemTag = "li",
+                ItemsContainerCssClass = "sfCheckListBox sfExpandedPropertyDetails",
+                DisabledTextCssClass = "sfTooltip"
+            };
+
+            // taxonomies
+            var taxonomyManager = TaxonomyManager.GetManager();
+
+            var taxonomies = taxonomyManager.GetTaxonomies<Taxonomy>();
+
+            foreach (var taxonomy in taxonomies)
+            {
+                var taxonomyItem = new FilterSelectorItem()
+                {
+                    Text = taxonomy.Title,
+                    GroupLogicalOperator = "AND",
+                    ItemLogicalOperator = "OR",
+                    ConditionOperator = "Contains",
+                    QueryDataName = taxonomy.Name,
+                    QueryFieldName = taxonomy.TaxonName,
+                    QueryFieldType = typeof(Guid).FullName
+                };
+                if (taxonomy.GetType() == typeof(FlatTaxonomy))
+                {
+                    taxonomyItem.SelectorResultView = new GenericTemplate(new FlatTaxonSelectorResultView()
+                    {
+                        WebServiceUrl = "~/Sitefinity/Services/Taxonomies/FlatTaxon.svc",
+                        AllowMultipleSelection = true
+                    });
+                }
+                else if (taxonomy.GetType() == typeof(HierarchicalTaxonomy))
+                {
+                    taxonomyItem.SelectorResultView = new GenericTemplate(new HierarchicalTaxonSelectorResultView()
+                    {
+                        WebServiceUrl = "~/Sitefinity/Services/Taxonomies/HierarchicalTaxon.svc",
+                        AllowMultipleSelection = true
+                    });
+                }
+
+                this.filterSelector.Items.Add(taxonomyItem);
+                this.filterSelector.SetTaxonomyId(taxonomy.Name, taxonomy.Id);
+            }
+
+
+            // date range
+            var dateRangeFilterItem = new FilterSelectorItem()
+            {
+                Text = Res.Get<OrderedContentResources>().ByDates,
+                GroupLogicalOperator = "AND",
+                ItemLogicalOperator = "AND",
+                QueryDataName = "Dates",
+                QueryFieldName = "PublicationDate",
+                QueryFieldType = typeof(DateTime).FullName,
+                CollectionTranslatorDelegate = "_translateQueryItems",
+                CollectionBuilderDelegate = "_buildQueryItems"
+            };
+            dateRangeFilterItem.SelectorResultView = new GenericTemplate(new DateRangeSelectorResultView()
+            {
+                SelectorDateRangesTitle = Res.Get<Labels>().DisplayNewsPublishedIn
+            });
+            this.filterSelector.Items.Add(dateRangeFilterItem);
+
+            this.FilterSelectorPlaceholder.Controls.Add(this.filterSelector);
+
         }
 
         public override IEnumerable<ScriptDescriptor> GetScriptDescriptors()
@@ -123,7 +208,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             descriptor.AddComponentProperty("listTemplateControl", this.ListTemplates.ClientID);
             descriptor.AddComponentProperty("singleItemTemplateControl", this.SingleItemTemplates.ClientID);
             descriptor.AddComponentProperty("pageSelector", this.PageSelector.ClientID);
-            descriptor.AddComponentProperty("filterSelector", this.FilterSelector.ClientID);
+            descriptor.AddComponentProperty("filterSelector", this.filterSelector.ClientID);
 
             return descriptors;
         }
@@ -146,8 +231,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         internal const string sortableScript = "Telerik.Sitefinity.FixedDynamicContentWidget.Scripts.lib.sortable.js";
         internal const string filterScript = "Telerik.Sitefinity.Web.Scripts.FilterSelectorHelper.js";
 
-        protected internal const string CategoriesQueryDataName = "Categories";
-        protected internal const string TagsQueryDataName = "Tags";
+        private FilterSelector filterSelector;
 
         #endregion
 
