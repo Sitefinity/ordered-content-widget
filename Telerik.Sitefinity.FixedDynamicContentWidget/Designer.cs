@@ -148,7 +148,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             {
                 var taxonomyItem = new FilterSelectorItem()
                 {
-                    Text = taxonomy.Title,
+                    Text = string.Format(Res.Get<OrderedContentResources>().BySomething, taxonomy.Title),
                     GroupLogicalOperator = "AND",
                     ItemLogicalOperator = "OR",
                     ConditionOperator = "Contains",
@@ -173,6 +173,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
                     });
                 }
 
+                taxonomyItem.Attributes.Add("data-filter-id", taxonomy.Id.ToString());
                 this.filterSelector.Items.Add(taxonomyItem);
                 this.filterSelector.SetTaxonomyId(taxonomy.Name, taxonomy.Id);
             }
@@ -194,6 +195,8 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             {
                 SelectorDateRangesTitle = Res.Get<Labels>().DisplayNewsPublishedIn
             });
+
+            dateRangeFilterItem.Attributes.Add("data-filter-id", "date-selector");
             this.filterSelector.Items.Add(dateRangeFilterItem);
 
             this.FilterSelectorPlaceholder.Controls.Add(this.filterSelector);

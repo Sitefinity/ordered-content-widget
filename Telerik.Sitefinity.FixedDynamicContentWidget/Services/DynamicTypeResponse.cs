@@ -8,5 +8,6 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string ClrType { get; set; }
+        public Guid[] SupportedTaxonomyIds { get; set; }
     }
 }

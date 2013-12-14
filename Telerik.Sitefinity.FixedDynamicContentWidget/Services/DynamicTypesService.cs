@@ -20,11 +20,26 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
                 {
                     Id = dmType.Id,
                     Title = dmType.DisplayName,
-                    ClrType = dmType.GetFullTypeName()
+                    ClrType = dmType.GetFullTypeName(),
+                    SupportedTaxonomyIds = this.GetSupportedTaxonomyIds(dmType, provider)
                 });
             }
 
             return dynamicTypes.ToArray();
         }
+
+        private Guid[] GetSupportedTaxonomyIds(DynamicModuleType type, ModuleBuilderDataProvider provider)
+        {
+            var supportedTaxonomyIds = new List<Guid>();
+            var fields = provider.GetDynamicModuleFields().Where(f => f.ParentTypeId == type.Id);
+            foreach (var field in fields)
+            {
+                if (field.FieldType == FieldType.Classification)
+                    supportedTaxonomyIds.Add(field.ClassificationId);
+            }
+
+            return supportedTaxonomyIds.ToArray();
+        }
+
     }
 }

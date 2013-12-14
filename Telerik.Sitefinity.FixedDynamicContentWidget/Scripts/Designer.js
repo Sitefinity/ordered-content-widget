@@ -238,6 +238,20 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.allItemsVirtualCount = data.VirtualCount;
             });
 
+            // TODO: this is awful, but oh well...
+            $('[data-filter-id]').each(function() {
+
+                var filterId = $(this).attr('data-filter-id');
+                if (filterId === 'date-selector') return;
+
+                if ($scope.selectedDynamicType.SupportedTaxonomyIds.indexOf(filterId) === -1) {
+                    $(this).closest('li').hide();
+                } else {
+                    $(this).closest('li').show();
+                }
+
+            });
+
         }, true);
 
         $scope.$watch('[controlDataLoaded, contentTypesLoaded]', function (newValue, oldValue) {

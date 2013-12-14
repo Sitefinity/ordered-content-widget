@@ -677,5 +677,20 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: By {0}...
+        /// </summary>
+        [ResourceEntry("BySomething",
+            Value = "By {0}...",
+            Description = "phrase: By {0}...",
+            LastModified = "2013/12/14")]
+        public string BySomething
+        {
+            get
+            {
+                return this["BySomething"];
+            }
+        }
+
     }
 }
