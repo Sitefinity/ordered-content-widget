@@ -91,7 +91,9 @@
                             <table style="width: 500px;">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>
+                                            <input type="checkbox" ng-click="selectAll()" />
+                                        </th>
                                         <th>
                                             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
                                         </th>
@@ -127,7 +129,9 @@
                             <table style="width: 500px;">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>
+                                            <input type="checkbox" ng-click="unselectAll()" ng-checked="selectedItems.length > 0" />
+                                        </th>
                                         <th>
                                             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
                                         </th>

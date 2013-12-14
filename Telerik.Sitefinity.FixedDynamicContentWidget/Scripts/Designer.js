@@ -161,6 +161,18 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         $scope.selectedDynamicType = "";
 
+        $scope.selectAll = function () {
+            for (var i = 0; i < $scope.allItems.length; i++) {
+                $scope.selectedItems.push($scope.allItems[i]);
+                $scope.selectedItemsVirtualCount++;
+            }
+        };
+
+        $scope.unselectAll = function () {
+            $scope.selectedItems = [];
+            $scope.selectedItemsVirtualCount = 0;
+        };
+
         $scope.dynamicTypes = DynamicTypes.query(function () {
             $scope.contentTypesLoaded = true;
         });
