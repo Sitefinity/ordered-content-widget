@@ -84,6 +84,9 @@
     <Compile Include="Services\DynamicTypeResponse.cs" />
     <Compile Include="Services\DynamicTypesService.cs" />
     <Compile Include="Services\FixedContentPlugin.cs" />
+    <Compile Include="Services\PageRequest.cs" />
+    <Compile Include="Services\PageResponse.cs" />
+    <Compile Include="Services\PageService.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

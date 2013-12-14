@@ -16,14 +16,23 @@ designerApp.factory('DynamicContents', ['$resource',
     }
 ]);
 
-var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 
-    function ($scope, DynamicTypes, DynamicContents) {
+designerApp.factory('Page', ['$resource',
+    function ($resource) {
+        return $resource('/restapi/fixeddynamiccontent/page/:id', {}, {
+            get: { method: 'GET' }
+        });
+    }
+]);
+
+
+var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 'Page', 
+    function ($scope, DynamicTypes, DynamicContents, Page) {
+
+        var pageSelector = null;
 
         $scope.controlData = {};
         $scope.controlDataLoaded = false;
         $scope.contentTypesLoaded = false;
-
-        
 
         // Array with all the items that are currently visible in the selector
         $scope.allItems = [];
@@ -61,6 +70,20 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         // Determines the list sort mode
         $scope.sortMode = 'manual';
+
+        // Determines whether page selector should be shown
+        $scope.showPageSelector = false;
+
+        $scope.showDesigner = function () {
+
+            if ($scope.showPageSelector) return false;
+
+            return true;
+        };
+
+        $scope.detailPageMode = 'auto';
+
+        $scope.detailsPage = null;
 
         /*
          * Finds the index of an item for a given id
@@ -111,6 +134,13 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.selectedItemsVirtualCount--;
         };
 
+        var pageSelected = function (page) {
+            $scope.$apply(function () {
+                $scope.detailsPage = page;
+                $scope.showPageSelector = false;
+            });
+        }
+
         $scope.selectedDynamicType = "";
 
         $scope.dynamicTypes = DynamicTypes.query(function () {
@@ -125,7 +155,13 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.isSelected(id) ? unselectItem(id) : selectItem(id);
         };
 
-        $scope.load = function (controlData) {
+        $scope.load = function (controlData, _pageSelector) {
+
+            if (!pageSelector) {
+                    pageSelector = _pageSelector;
+                    pageSelector.add_doneClientSelection(pageSelected);
+            }
+
             $scope.controlData = controlData;
             var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
             if(masterDefinition.AllowPaging) {
@@ -140,10 +176,20 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.limitCount = 20;
             }
 
-            if (controlData.SortMode != 'None') {
+            if (controlData.SortMode !== 'None') {
                 $scope.sortMode = controlData.SortMode;
             } else {
                 $scope.sortMode = 'Manual';
+            }
+
+            if (masterDefinition.DetailsPageId && masterDefinition.DetailsPageId !== '00000000-0000-0000-0000-000000000000') {
+                Page.get({ id: masterDefinition.DetailsPageId }, function (data) {
+                    $scope.detailsPage = {
+                        Id : masterDefinition.DetailsPageId,
+                        Title : data.Title
+                    };
+                });
+                $scope.detailPageMode = 'custom';
             }
 
             $scope.controlDataLoaded = true;
@@ -187,6 +233,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer = function (element) {
     Telerik.Sitefinity.FixedDynamicContentWidget.Designer.initializeBase(this, [element]);
     this._listTemplateControl = null;
     this._singleItemTemplateControl = null;
+    this._pageSelector = null;
 };
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
@@ -250,6 +297,12 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         masterDefinition.TemplateKey = this.get_listTemplateControl().get_currentView().TemplateKey;
         detailDefinition.TemplateKey = this.get_singleItemTemplateControl().get_currentView().TemplateKey;
 
+        if (ctrl.detailPageMode === 'custom') {
+            masterDefinition.DetailsPageId = ctrl.detailsPage.Id;
+        } else {
+            masterDefinition.DetailsPageId = null;
+        }
+
         controlData.SortMode = ctrl.sortMode;
     },
 
@@ -263,7 +316,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         this.get_singleItemTemplateControl()._getFieldControl('TemplateKey').set_value(detailDefinition.TemplateKey);
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
-        ctrl.load(controlData);
+        ctrl.load(controlData, this.get_pageSelector());
     },
 
     get_listTemplateControl: function() {
@@ -280,6 +333,14 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
     
     set_singleItemTemplateControl: function(value) {
         this._singleItemTemplateControl = value;
+    },
+
+    get_pageSelector: function () {
+        return this._pageSelector;
+    },
+
+    set_pageSelector: function (value) {
+        this._pageSelector = value;
     }
 };
 

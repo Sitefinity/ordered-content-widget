@@ -51,6 +51,8 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
                 this.MasterViewControl.SourceItemsIds = this.RelatedItemsIds;
             }
 
+            //this.MasterViewDefinition.DetailsPageId
+
             switch (this.SortMode)
             {
                 case SortModes.NewestFirst:
