@@ -104,7 +104,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-show="allItems.length > 0">
                                     <tr ng-repeat="item in allItems">
                                         <td>
                                             <input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
@@ -119,6 +119,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div ng-hide="allItems.length > 0">
+                                <asp:Literal ID="Literal6" runat="server" Text="<%$Resources:OrderedContentResources, NoItemsMatchedFilter %>" />
+                            </div>
                         </div>
                         <div>
                             <table style="width: 500px;">

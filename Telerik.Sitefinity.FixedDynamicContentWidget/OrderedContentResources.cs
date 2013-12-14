@@ -692,5 +692,20 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: No items matched filter
+        /// </summary>
+        [ResourceEntry("NoItemsMatchedFilter",
+            Value = "No items matched filter",
+            Description = "phrase: No items matched filter",
+            LastModified = "2013/12/13")]
+        public string NoItemsMatchedFilter
+        {
+            get
+            {
+                return this["NoItemsMatchedFilter"];
+            }
+        }
+
     }
 }
