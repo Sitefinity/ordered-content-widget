@@ -12,6 +12,9 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 using System.Web.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Modules;
+using Telerik.Sitefinity.Data.Linq.Dynamic;
+using Telerik.Sitefinity.Web.Model;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
@@ -38,7 +41,19 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             }
             else
             {
+                string filterExpression = null;
+                if (request.QueryData != null)
+                {
+                    var converter = new JsonTypeConverter<QueryData>();
+                    var queryData = (QueryData)converter.ConvertFromString(request.QueryData);
+                    filterExpression = DefinitionsHelper.GetFilterExpression(string.Empty, queryData);
+                }
+
                 var query = manager.GetDataItems(type).Where(di => di.Status == ContentLifecycleStatus.Live);
+
+                if (filterExpression != null)
+                    query = query.Where(filterExpression);
+
                 virtualCount = query.Count();
                 foreach (DynamicContent item in query)
                 {

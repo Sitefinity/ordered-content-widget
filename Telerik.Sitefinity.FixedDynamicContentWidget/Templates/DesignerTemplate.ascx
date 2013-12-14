@@ -15,206 +15,241 @@
     <sf:ResourceFile Name="Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_common_min.css" Static="True" />
 </sf:ResourceLinks>
 
-<telerik:RadWindowManager ID="windowManager" runat="server" Height="100%" Width="100%"
-    Behaviors="None" Skin="Sitefinity" ShowContentDuringLoad="false" VisibleStatusBar="false">
+<telerik:radwindowmanager id="windowManager" runat="server" height="100%" width="100%"
+    behaviors="None" skin="Sitefinity" showcontentduringload="false" visiblestatusbar="false">
     <windows>
         <telerik:RadWindow ID="widgetEditorDialog" runat="server" ReloadOnShow="true" Modal="true" />
     </windows>
-</telerik:RadWindowManager>
+</telerik:radwindowmanager>
 
 <div ng-app="DesignerApp" ng-controller="DesignerCtrl">
 
     <div ng-show="showDesigner()">
-    <div id="tabstrip">
-        <ul>
-            <li class="k-state-active">
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Content %>" />
-            </li>
-            <li>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ListSettings %>" />
-            </li>
-            <li>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SingleItemSettings %>" />
-            </li>
-        </ul>
-        <div>
-            <strong>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ContentType %>" />
-            </strong>
-            <br />
-            <select ng-model="selectedDynamicType" ng-options="t.Title for t in dynamicTypes">
-                <option value="">
-                    <asp:Literal ID="Literal1" runat="server" Text="<%$Resources:OrderedContentResources, ChooseContentType %>" />
-                </option>
-            </select>
+        <div id="tabstrip">
+            <ul>
+                <li class="k-state-active">
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Content %>" />
+                </li>
+                <li>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ListSettings %>" />
+                </li>
+                <li>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SingleItemSettings %>" />
+                </li>
+            </ul>
+            <div>
+                <strong>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ContentType %>" />
+                </strong>
+                <br />
+                <select ng-model="selectedDynamicType" ng-options="t.Title for t in dynamicTypes">
+                    <option value="">
+                        <asp:Literal ID="Literal1" runat="server" Text="<%$Resources:OrderedContentResources, ChooseContentType %>" />
+                    </option>
+                </select>
 
-            <div style="margin:10px 0;">
+                <div style="margin: 10px 0;">
 
-                <a href="#" ng-click="showFilters = !showFilters">
-                    <strong>
-                        <asp:Literal ID="Literal4" runat="server" Text="<%$Resources:OrderedContentResources, FilterItems %>" />
-                    </strong>
-                    <i>(<asp:Literal ID="Literal5" runat="server" Text="<%$Resources:OrderedContentResources, ByCategoryTag %>" />)</i>
-                </a>
-
-                <div ng-show="showFilters">
-                    <input type="checkbox" ng-model="filterByDates" />
-                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ByDates %>" />
-                    {{ dateRangeFilter.Text }}
-                    <a href="#" ng-show="filterByDates" ng-click="showDateRangeSelector = true">
-                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Select %>" />
+                    <a href="#" ng-click="showFilters = !showFilters">
+                        <strong>
+                            <asp:Literal ID="Literal4" runat="server" Text="<%$Resources:OrderedContentResources, FilterItems %>" />
+                        </strong>
+                        <i>(<asp:Literal ID="Literal5" runat="server" Text="<%$Resources:OrderedContentResources, ByCategoryTag %>" />)</i>
                     </a>
+
+                    <div ng-show="showFilters">
+
+                        <div ng-non-bindable>
+
+                        <sf:FilterSelector ID="filterSelector" runat="server" AllowMultipleSelection="true" ItemsContainerTag="ul"
+                            ItemTag="li" ItemsContainerCssClass="sfCheckListBox sfExpandedPropertyDetails" DisabledTextCssClass="sfTooltip">
+                            <items>
+                        <sf:FilterSelectorItem runat="server" Text="<%$Resources:Labels, ByCategories %>"
+                            GroupLogicalOperator="AND" ItemLogicalOperator="OR" ConditionOperator="Contains"
+                            QueryDataName="Categories" QueryFieldName="Category" QueryFieldType="System.Guid">
+                            <SelectorResultView>
+                                <sf:HierarchicalTaxonSelectorResultView runat="server" WebServiceUrl="~/Sitefinity/Services/Taxonomies/HierarchicalTaxon.svc"
+                                    AllowMultipleSelection="true">
+                                </sf:HierarchicalTaxonSelectorResultView>
+                            </SelectorResultView>
+                        </sf:FilterSelectorItem>
+                        <sf:FilterSelectorItem runat="server" Text="<%$Resources:Labels, ByTags %>"
+                            GroupLogicalOperator="AND" ItemLogicalOperator="OR" ConditionOperator="Contains"
+                            QueryDataName="Tags" QueryFieldName="Tags" QueryFieldType="System.Guid">
+                            <SelectorResultView>
+                                <sf:FlatTaxonSelectorResultView runat="server" WebServiceUrl="~/Sitefinity/Services/Taxonomies/FlatTaxon.svc"
+                                    AllowMultipleSelection="true">
+                                </sf:FlatTaxonSelectorResultView>
+                            </SelectorResultView>
+                        </sf:FilterSelectorItem>
+                        <sf:FilterSelectorItem runat="server" Text="<%$Resources:Labels, ByDates %>"
+                            GroupLogicalOperator="AND" ItemLogicalOperator="AND" 
+                            QueryDataName="Dates" QueryFieldName="PublicationDate" QueryFieldType="System.DateTime"
+                            CollectionTranslatorDelegate="_translateQueryItems" 
+                            CollectionBuilderDelegate="_buildQueryItems">
+                            <SelectorResultView>
+                                <sf:DateRangeSelectorResultView runat="server" SelectorDateRangesTitle="<%$Resources:Labels, DisplayNewsPublishedIn %>">
+                                </sf:DateRangeSelectorResultView>
+                            </SelectorResultView>
+                        </sf:FilterSelectorItem>
+                    </items>
+                        </sf:FilterSelector>
+                            </div>
+
+                        <a href="#" ng-click="applyFilter()">Apply filter</a>
+
+                    </div>
+
                 </div>
 
-            </div>
+                <div ng-hide="sortMode != 'Manual'">
+                    <p>
+                        <strong>
+                            <asp:Literal ID="Literal2" runat="server" Text="<%$Resources:OrderedContentResources, WidgetHelp1 %>" />
+                        </strong>
+                        <br />
+                        <asp:Literal ID="Literal3" runat="server" Text="<%$Resources:OrderedContentResources, WidgetHelp2 %>" />
+                    </p>
 
-            <div ng-hide="sortMode != 'Manual'">
-                <p>
-                    <strong>
-                        <asp:Literal ID="Literal2" runat="server" Text="<%$Resources:OrderedContentResources, WidgetHelp1 %>" />
-                    </strong>
-                    <br />
-                    <asp:Literal ID="Literal3" runat="server" Text="<%$Resources:OrderedContentResources, WidgetHelp2 %>" />
-                </p>
-
-                <div id="all-selected-tabstrip">
-                    <ul>
-                        <li class="k-state-active">
-                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, All %>" />
-                            ({{allItemsVirtualCount}})
-                        </li>
-                        <li>
-                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Selected %>" />
-                            ({{selectedItemsVirtualCount}})
-                        </li>
-                    </ul>
-                    <div>
-                        <table style="width: 500px;">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
-                                    </th>
-                                    <th>
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ModifiedOn %>" />
-                                    </th>
-                                    <th>
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in allItems">
-                                    <td>
-                                        <input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
-                                    <td>{{ item.Title }}</td>
-                                    <td>{{ item.LastModified | date:'mediumDate' }}</td>
-                                    <td>{{ item.Author }}</td>
-                                    <td>
-                                        <a href="{{ item.CanonicalUrl }}">
-                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <table style="width: 500px;">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
-                                    </th>
-                                    <th>
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ModifiedOn %>" />
-                                    </th>
-                                    <th>
-                                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody ui-sortable ng-model="selectedItems">
-                                <tr ng-repeat="item in selectedItems" style="cursor: move;">
-                                    <td>
-                                        <input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
-                                    <td>{{ item.Title }}</td>
-                                    <td>{{ item.LastModified | date:'mediumDate' }}</td>
-                                    <td>{{ item.Author }}</td>
-                                    <td>
-                                        <a href="{{ item.CanonicalUrl }}">
-                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div id="all-selected-tabstrip">
+                        <ul>
+                            <li class="k-state-active">
+                                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, All %>" />
+                                ({{allItemsVirtualCount}})
+                            </li>
+                            <li>
+                                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Selected %>" />
+                                ({{selectedItemsVirtualCount}})
+                            </li>
+                        </ul>
+                        <div>
+                            <table style="width: 500px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
+                                        </th>
+                                        <th>
+                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ModifiedOn %>" />
+                                        </th>
+                                        <th>
+                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in allItems">
+                                        <td>
+                                            <input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
+                                        <td>{{ item.Title }}</td>
+                                        <td>{{ item.LastModified | date:'mediumDate' }}</td>
+                                        <td>{{ item.Author }}</td>
+                                        <td>
+                                            <a href="{{ item.CanonicalUrl }}">
+                                                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table style="width: 500px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
+                                        </th>
+                                        <th>
+                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ModifiedOn %>" />
+                                        </th>
+                                        <th>
+                                            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, By %>" />
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody ui-sortable ng-model="selectedItems">
+                                    <tr ng-repeat="item in selectedItems" style="cursor: move;">
+                                        <td>
+                                            <input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
+                                        <td>{{ item.Title }}</td>
+                                        <td>{{ item.LastModified | date:'mediumDate' }}</td>
+                                        <td>{{ item.Author }}</td>
+                                        <td>
+                                            <a href="{{ item.CanonicalUrl }}">
+                                                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <input type="radio" ng-model="listMode" value="paging" />
-            <strong>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AllowPaging %>" /></strong>
-            <br />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, DivideTheListOnPagesUpTo %>"></asp:Literal>
-            <input type="text" ng-model="itemsPerPage" ng-disabled="listMode !== 'paging'" />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsPerPage %>"></asp:Literal>
+            <div>
+                <input type="radio" ng-model="listMode" value="paging" />
+                <strong>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AllowPaging %>" /></strong>
+                <br />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, DivideTheListOnPagesUpTo %>"></asp:Literal>
+                <input type="text" ng-model="itemsPerPage" ng-disabled="listMode !== 'paging'" />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsPerPage %>"></asp:Literal>
 
-            <br />
+                <br />
 
-            <input type="radio" ng-model="listMode" value="limit" />
-            <strong>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, UseLimit %>" /></strong>
-            <br />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowOnlyLimitedNumberOfItems %>"></asp:Literal>
-            <input type="text" ng-model="limitCount" name="master-mode" ng-disabled="listMode !== 'limit'" />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsInTotal %>"></asp:Literal>
+                <input type="radio" ng-model="listMode" value="limit" />
+                <strong>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, UseLimit %>" /></strong>
+                <br />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowOnlyLimitedNumberOfItems %>"></asp:Literal>
+                <input type="text" ng-model="limitCount" name="master-mode" ng-disabled="listMode !== 'limit'" />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ItemsInTotal %>"></asp:Literal>
 
-            <br />
+                <br />
 
-            <input type="radio" ng-model="listMode" value="none" />
-            <strong>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NoLimitAndPaging %>" /></strong>
-            <br />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowAllPublishedItemsAtOnce %>" />
+                <input type="radio" ng-model="listMode" value="none" />
+                <strong>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NoLimitAndPaging %>" /></strong>
+                <br />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ShowAllPublishedItemsAtOnce %>" />
 
-            <br />
-            <strong>
-                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SortItems %>" />
-            </strong>
-            <br />
-            <select ng-model="sortMode" ng-init="sortMode='Manual'">
-                <option value="NewestFirst">
-                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NewestFirst %>" /></option>
-                <option value="OldestFirst">
-                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, OldestFirst %>" /></option>
-                <option value="AlphabetAsc">
-                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ByTitleAz %>" /></option>
-                <option value="AlphabetDesc">
-                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ByTitleZa %>" /></option>
-                <option value="Manual">
-                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AsManuallyOrdered %>" /></option>
-            </select>
+                <br />
+                <strong>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SortItems %>" />
+                </strong>
+                <br />
+                <select ng-model="sortMode" ng-init="sortMode='Manual'">
+                    <option value="NewestFirst">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NewestFirst %>" /></option>
+                    <option value="OldestFirst">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, OldestFirst %>" /></option>
+                    <option value="AlphabetAsc">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ByTitleAz %>" /></option>
+                    <option value="AlphabetDesc">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, ByTitleZa %>" /></option>
+                    <option value="Manual">
+                        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AsManuallyOrdered %>" /></option>
+                </select>
 
-            <sf:CreateEditTemplateControl runat="server" ID="listTemplates" ClientIDMode="Predictable" Title="<%$Resources:OrderedContentResources,ListTemplate %>"></sf:CreateEditTemplateControl>
+                <sf:CreateEditTemplateControl runat="server" ID="listTemplates" ClientIDMode="Predictable" Title="<%$Resources:OrderedContentResources,ListTemplate %>"></sf:CreateEditTemplateControl>
 
-        </div>
-        <div>
+            </div>
+            <div>
 
-            <strong><asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, OpenSingleItemIn %>" /></strong>
-            <br />
-            <input type="radio" ng-model="detailPageMode" value="auto" />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AutoGeneratedPage %>" />
-            <i>(<asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, WithTheSameLayoutAsTheListPage %>" />)</i>
-            <br />
-            <input type="radio" ng-model="detailPageMode" value="custom" />
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SelectedExistingPage %>" />...
+                <strong>
+                    <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, OpenSingleItemIn %>" /></strong>
+                <br />
+                <input type="radio" ng-model="detailPageMode" value="auto" />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, AutoGeneratedPage %>" />
+                <i>(<asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, WithTheSameLayoutAsTheListPage %>" />)</i>
+                <br />
+                <input type="radio" ng-model="detailPageMode" value="custom" />
+                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, SelectedExistingPage %>" />...
             <div ng-hide="detailPageMode == 'auto'">
                 <span>{{ detailsPage.Title }}</span>
                 <a href="#" ng-click="showPageSelector = true">
@@ -222,24 +257,17 @@
                 </a>
             </div>
 
-            <sf:CreateEditTemplateControl runat="server" ID="singleItemTemplates" ClientIDMode="Predictable" Title="<%$Resources:OrderedContentResources,SingleItemTemplate %>"></sf:CreateEditTemplateControl>
+                <sf:CreateEditTemplateControl runat="server" ID="singleItemTemplates" ClientIDMode="Predictable" Title="<%$Resources:OrderedContentResources,SingleItemTemplate %>"></sf:CreateEditTemplateControl>
+            </div>
         </div>
-    </div>
     </div>
 
     <div ng-show="showPageSelector">
         <sf:PageSelector id="pageSelector" runat="server"></sf:PageSelector>
     </div>
 
-    <div ng-show="showDateRangeSelector">
-        <sf:DateRangeSelector id="dateRangeSelector" runat="server"></sf:DateRangeSelector>
-        <a href="#" ng-click="selectDateRangeFilter()">
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Done %>" />
-        </a>
-        <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Or %>" />
-        <a href="#" ng-click="showDateRangeSelector = false">
-            <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Cancel %>" />
-        </a>
-    </div>
+
 
 </div>
+
+

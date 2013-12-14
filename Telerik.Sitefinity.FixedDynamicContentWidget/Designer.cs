@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
+using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ControlDesign;
 using Telerik.Web.UI;
@@ -85,13 +86,13 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         }
 
         /// <summary>
-        /// Gets the instance of the date range selector.
+        /// Gets the instance of the filter selector
         /// </summary>
-        protected virtual DateRangeSelector DateRangeSelector
+        protected virtual FilterSelector FilterSelector
         {
             get
             {
-                return this.Container.GetControl<DateRangeSelector>("dateRangeSelector", true);
+                return this.Container.GetControl<FilterSelector>("filterSelector", true);
             }
         }
 
@@ -109,6 +110,9 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             this.ListTemplates.WindowManager = this.RadWindowManager;
             this.SingleItemTemplates.DesignedMasterViewType = typeof(DynamicContentViewDetail).FullName;
             this.SingleItemTemplates.WindowManager = this.RadWindowManager;
+
+            this.FilterSelector.SetTaxonomyId(Designer.CategoriesQueryDataName, TaxonomyManager.CategoriesTaxonomyId);
+            this.FilterSelector.SetTaxonomyId(Designer.TagsQueryDataName, TaxonomyManager.TagsTaxonomyId);
         }
 
         public override IEnumerable<ScriptDescriptor> GetScriptDescriptors()
@@ -119,7 +123,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             descriptor.AddComponentProperty("listTemplateControl", this.ListTemplates.ClientID);
             descriptor.AddComponentProperty("singleItemTemplateControl", this.SingleItemTemplates.ClientID);
             descriptor.AddComponentProperty("pageSelector", this.PageSelector.ClientID);
-            descriptor.AddComponentProperty("dateRangeSelector", this.DateRangeSelector.ClientID);
+            descriptor.AddComponentProperty("filterSelector", this.FilterSelector.ClientID);
 
             return descriptors;
         }
@@ -129,6 +133,7 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             var scripts = new List<ScriptReference>(base.GetScriptReferences());
             scripts.Add(new ScriptReference(Designer.designerScript, typeof(Designer).Assembly.FullName));
             scripts.Add(new ScriptReference(Designer.sortableScript, typeof(Designer).Assembly.FullName));
+            scripts.Add(new ScriptReference(Designer.filterScript, typeof(FilterSelector).Assembly.FullName));
             return scripts;
         }
 
@@ -139,6 +144,10 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         private const string layoutTemplatePath = "~/FixedDyamicContentWidget/Telerik.Sitefinity.FixedDynamicContentWidget.Templates.DesignerTemplate.ascx";
         internal const string designerScript = "Telerik.Sitefinity.FixedDynamicContentWidget.Scripts.Designer.js";
         internal const string sortableScript = "Telerik.Sitefinity.FixedDynamicContentWidget.Scripts.lib.sortable.js";
+        internal const string filterScript = "Telerik.Sitefinity.Web.Scripts.FilterSelectorHelper.js";
+
+        protected internal const string CategoriesQueryDataName = "Categories";
+        protected internal const string TagsQueryDataName = "Tags";
 
         #endregion
 

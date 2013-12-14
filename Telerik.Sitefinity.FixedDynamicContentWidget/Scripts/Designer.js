@@ -29,7 +29,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
     function ($scope, DynamicTypes, DynamicContents, Page) {
 
         var pageSelector = null,
-            dateRangeSelector = null;
+            filterSelector = null;
 
         $scope.controlData = {};
         $scope.controlDataLoaded = false;
@@ -78,7 +78,6 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.showDesigner = function () {
 
             if ($scope.showPageSelector) return false;
-            if ($scope.showDateRangeSelector) return false;
 
             return true;
         };
@@ -89,12 +88,19 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         $scope.showFilters = false;
 
-        $scope.filterByDates = false;
-        $scope.showDateRangeSelector = false;
-        $scope.dateRangeFilter = null;
-        $scope.selectDateRangeFilter = function () {
-            $scope.dateRangeFilter = dateRangeSelector.get_value();
-            $scope.showDateRangeSelector = false;
+        $scope.applyFilter = function () {
+
+            filterSelector.applyChanges();
+            var queryData = filterSelector.get_queryData();
+            queryData = JSON.stringify(queryData);
+
+            var typeId = $scope.selectedDynamicType.Id;
+
+            DynamicContents.query({ id: typeId, queryData: queryData }, function (data) {
+                $scope.allItems = data.Items;
+                $scope.allItemsVirtualCount = data.VirtualCount;
+            });
+
         };
 
         /*
@@ -167,15 +173,15 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.isSelected(id) ? unselectItem(id) : selectItem(id);
         };
 
-        $scope.load = function (controlData, _pageSelector, _dateRangeSelector) {
+        $scope.load = function (controlData, _pageSelector, _filterSelector) {
 
             if (!pageSelector) {
                 pageSelector = _pageSelector;
                 pageSelector.add_doneClientSelection(pageSelected);
             }
 
-            if (!dateRangeSelector) {
-                dateRangeSelector = _dateRangeSelector;
+            if (!filterSelector) {
+                filterSelector = _filterSelector;
             }
 
             $scope.controlData = controlData;
@@ -250,7 +256,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer = function (element) {
     this._listTemplateControl = null;
     this._singleItemTemplateControl = null;
     this._pageSelector = null;
-    this._dateRangeSelector = null;
+    this._filterSelector = null;
 };
 
 Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
@@ -268,6 +274,8 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
 
         this.get_singleItemTemplateControl().set_parentDesigner(this);
         this.get_singleItemTemplateControl().set_currentView(controlData.ControlDefinition.Views.DynamicContentDetailView);
+
+        this._filterSelector.set_queryData(new Telerik.Sitefinity.Web.UI.QueryData());
 
         Telerik.Sitefinity.FixedDynamicContentWidget.Designer.callBaseMethod(this, 'initialize');
     },
@@ -333,7 +341,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         this.get_singleItemTemplateControl()._getFieldControl('TemplateKey').set_value(detailDefinition.TemplateKey);
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
-        ctrl.load(controlData, this.get_pageSelector(), this.get_dateRangeSelector());
+        ctrl.load(controlData, this.get_pageSelector(), this.get_filterSelector());
     },
 
     get_listTemplateControl: function() {
@@ -360,12 +368,12 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         this._pageSelector = value;
     },
 
-    get_dateRangeSelector: function () {
-        return this._dateRangeSelector;
+    get_filterSelector: function () {
+        return this._filterSelector;
     },
 
-    set_dateRangeSelector: function (value) {
-        this._dateRangeSelector = value;
+    set_filterSelector: function (value) {
+        this._filterSelector = value;
     }
 
 };
