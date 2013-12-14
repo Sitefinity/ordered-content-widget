@@ -140,7 +140,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody ui-sortable ng-model="selectedItems">
+                                <tbody ui-sortable ng-model="selectedItems" ng-show="selectedItems.length > 0">
                                     <tr ng-repeat="item in selectedItems" style="cursor: move;">
                                         <td>
                                             <input type="checkbox" ng-click="toggleSelect(item.Id)" ng-checked="isSelected(item.Id)" /></td>
@@ -155,6 +155,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div ng-hide="selectedItems.length > 0">
+                                <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, NoItemsHaveBeenSelected %>" />
+                            </div>
                         </div>
                     </div>
                 </div>

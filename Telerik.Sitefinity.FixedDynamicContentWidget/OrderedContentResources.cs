@@ -707,5 +707,20 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: No items have been selected
+        /// </summary>
+        [ResourceEntry("NoItemsHaveBeenSelected",
+            Value = "No items have been selected",
+            Description = "phrase: No items have been selected",
+            LastModified = "2013/12/14")]
+        public string NoItemsHaveBeenSelected
+        {
+            get
+            {
+                return this["NoItemsHaveBeenSelected"];
+            }
+        }
+
     }
 }
