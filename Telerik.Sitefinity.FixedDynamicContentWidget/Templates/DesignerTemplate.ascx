@@ -80,11 +80,11 @@
                         <ul>
                             <li class="k-state-active">
                                 <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, All %>" />
-                                ({{allItemsVirtualCount}})
+                                ({{ allItemsVirtualCount }})
                             </li>
                             <li>
                                 <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Selected %>" />
-                                ({{selectedItemsVirtualCount}})
+                                ({{ selectedItems.length }})
                             </li>
                         </ul>
                         <div>

@@ -47,13 +47,6 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         // Array with all the items that have been selected
         $scope.selectedItems = [];
 
-        /*
-         * The virtual count of all the items that have been selected and could be displayed
-         * given the paging constraints.
-         *
-        **/
-        $scope.selectedItemsVirtualCount = 0;
-
         // the mode in which list operates. paging|limit|none
         $scope.listMode = "none"
 
@@ -129,7 +122,6 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             if ($scope.selectedDynamicType.Id) {
                 DynamicContents.query({ id: $scope.selectedDynamicType.Id, SelectedContentIds: $scope.controlData.SelectedItems }, function (data) {
                     $scope.selectedItems = data.Items;
-                    $scope.selectedItemsVirtualCount = data.VirtualCount;
                     dialogBase.resizeToContent();
                 });
             }
@@ -141,7 +133,6 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 return item.Id === id;
             }, $scope.allItems)];
             $scope.selectedItems.push(item);
-            $scope.selectedItemsVirtualCount++;
         };
 
         // Unselects an item
@@ -149,7 +140,6 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.selectedItems.splice(findIndex(function (item) {
                 return item.Id === id;
             }, $scope.selectedItems), 1);
-            $scope.selectedItemsVirtualCount--;
         };
 
         var pageSelected = function (page) {
@@ -164,13 +154,11 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.selectAll = function () {
             for (var i = 0; i < $scope.allItems.length; i++) {
                 $scope.selectedItems.push($scope.allItems[i]);
-                $scope.selectedItemsVirtualCount++;
             }
         };
 
         $scope.unselectAll = function () {
             $scope.selectedItems = [];
-            $scope.selectedItemsVirtualCount = 0;
         };
 
         $scope.dynamicTypes = DynamicTypes.query(function () {
