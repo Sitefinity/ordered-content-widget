@@ -121,9 +121,23 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <!-- empty screen -->
                             <div ng-hide="allItems.length > 0">
                                 <asp:Literal ID="Literal6" runat="server" Text="<%$Resources:OrderedContentResources, NoItemsMatchedFilter %>" />
                             </div>
+                            <!-- pager -->
+                            <ul>
+                                <li>
+                                    <a href="#" ng-if="currentPageSegment > 1" ng-click="changePageSegment(-1)">...</a>
+                                </li>
+                                <li ng-repeat="page in allItemsPages">
+                                    <a href="#" ng-click="changePage(page.Number)" ng-if="page.Number !== currentPage">{{ page.Number }}</a>
+                                    <strong ng-if="page.Number === currentPage">{{ page.Number }}</strong>
+                                </li>
+                                <li>
+                                    <a href="#" ng-if="currentPageSegment < totalPageSegments" ng-click="changePageSegment(1)">...</a>
+                                </li>
+                            </ul>
                         </div>
                         <div>
                             <table style="width: 500px;">

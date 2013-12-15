@@ -29,7 +29,9 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
     function ($scope, DynamicTypes, DynamicContents, Page) {
 
         var pageSelector = null,
-            filterSelector = null;
+            filterSelector = null,
+            pagerPageSize = 20,
+            pagerMaxPages = 10;
 
         $scope.controlData = {};
         $scope.controlDataLoaded = false;
@@ -43,6 +45,39 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
          * filter expressions.
         **/
         $scope.allItemsVirtualCount = 0;
+
+        $scope.allItemsPages = [];
+
+        $scope.currentPage = 1;
+
+        $scope.currentPageSegment = 1;
+
+        $scope.totalPageSegments = 0;
+
+        $scope.changePage = function (page) {
+
+            var typeId = $scope.selectedDynamicType.Id;
+            var skip = page * pagerPageSize;
+
+            var queryData = filterSelector.get_queryData();
+            if (queryData.QueryItems.length > 0) {
+                queryData = JSON.stringify(queryData);
+            } else {
+                queryData = null;
+            }
+
+            DynamicContents.query({ id: typeId, queryData: queryData, skip: skip, take: pagerPageSize }, function (data) {
+                $scope.allItems = data.Items;
+                $scope.allItemsVirtualCount = data.VirtualCount;
+                $scope.currentPage = page;
+                initializePager();
+            });
+        };
+
+        $scope.changePageSegment = function (add) {
+            $scope.currentPageSegment = $scope.currentPageSegment + add;
+            initializePager();
+        }
 
         // Array with all the items that have been selected
         $scope.selectedItems = [];
@@ -92,6 +127,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             DynamicContents.query({ id: typeId, queryData: queryData }, function (data) {
                 $scope.allItems = data.Items;
                 $scope.allItemsVirtualCount = data.VirtualCount;
+                initializePager();
             });
 
         };
@@ -148,6 +184,20 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.showPageSelector = false;
             });
         }
+
+        var initializePager = function () {
+            var pages = [];
+            var totalPages = Math.ceil($scope.allItemsVirtualCount / pagerPageSize);
+            var firstPage = $scope.currentPageSegment * pagerMaxPages - pagerMaxPages;
+            var lastPage = ($scope.currentPageSegment * pagerMaxPages) > totalPages ? totalPages -1 : $scope.currentPageSegment * pagerMaxPages;
+            for (var i = firstPage; i < lastPage ; i++) {
+                pages.push({
+                    Number: i + 1
+                });
+            }
+            $scope.allItemsPages = pages;
+            $scope.totalPageSegments = Math.ceil(totalPages / pagerMaxPages);
+        };
 
         $scope.selectedDynamicType = "";
 
@@ -236,6 +286,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             DynamicContents.query({ id: typeId }, function (data) {
                 $scope.allItems = data.Items;
                 $scope.allItemsVirtualCount = data.VirtualCount;
+                initializePager();
             });
 
             // TODO: this is awful, but oh well...

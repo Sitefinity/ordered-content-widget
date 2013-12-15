@@ -55,6 +55,15 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
                     query = query.Where(filterExpression);
 
                 virtualCount = query.Count();
+
+                if (request.Skip.HasValue)
+                    query = query.Skip(request.Skip.Value);
+
+                if (request.Take.HasValue)
+                    query = query.Take(request.Take.Value);
+                else
+                    query = query.Take(20);
+
                 foreach (DynamicContent item in query)
                 {
                     dynamicContentList.Add(this.ToResponse(item, dynamicType));
