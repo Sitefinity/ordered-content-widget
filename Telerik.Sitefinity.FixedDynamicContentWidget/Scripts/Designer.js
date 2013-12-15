@@ -81,11 +81,14 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.currentPage = page;
                 initializePager();
             });
+
+            $scope.isSelectAllChecked = false;
         };
 
         $scope.changePageSegment = function (add) {
             $scope.currentPageSegment = $scope.currentPageSegment + add;
             initializePager();
+            $scope.isSelectAllChecked = false;
         }
 
         // Array with all the items that have been selected
@@ -143,6 +146,8 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         $scope.mainFieldStartsWith = null;
 
+        $scope.isSelectAllChecked = false;
+
         /*
          * Finds the index of an item for a given id
          * within a specified collection.
@@ -187,6 +192,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.selectedItems.splice(findIndex(function (item) {
                 return item.Id === id;
             }, $scope.selectedItems), 1);
+            $scope.isSelectAllChecked = false;
         };
 
         var pageSelected = function (page) {
@@ -237,12 +243,17 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         $scope.selectAll = function () {
             for (var i = 0; i < $scope.allItems.length; i++) {
+                if ($scope.selectedItems.indexOf($scope.allItems[i]) > -1) {
+                    continue;
+                }
                 $scope.selectedItems.push($scope.allItems[i]);
             }
+            $scope.isSelectAllChecked = true;
         };
 
         $scope.unselectAll = function () {
             $scope.selectedItems = [];
+            $scope.isSelectAllChecked = false;
         };
 
         $scope.dynamicTypes = DynamicTypes.query(function () {
@@ -332,6 +343,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.allItemsVirtualCount = data.VirtualCount;
                 initializePager();
                 initializeTemplateControls();
+                $scope.isSelectAllChecked = false;
             });
 
             // TODO: this is awful, but oh well...

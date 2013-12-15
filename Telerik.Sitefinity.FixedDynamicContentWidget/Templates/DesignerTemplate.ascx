@@ -93,7 +93,7 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <input type="checkbox" ng-click="selectAll()" />
+                                            <input type="checkbox" ng-click="selectAll()" ng-checked="isSelectAllChecked" />
                                         </th>
                                         <th>
                                             <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, Title %>" />
