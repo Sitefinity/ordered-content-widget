@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Data.Linq.Dynamic;
 using Telerik.Sitefinity.Web.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
@@ -91,13 +92,16 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 
         private DynamicContentResponse ToResponse(DynamicContent dynamicContent, DynamicModuleType dynamicType)
         {
+            var contentLocationService = SystemManager.GetContentLocationService();
+            var canonicalUrl = contentLocationService.GetItemDefaultLocation(dynamicContent).ItemAbsoluteUrl;
+
             return new DynamicContentResponse()
             {
                 Id = dynamicContent.Id,
                 Title = dynamicContent.GetValue<Lstring>(dynamicType.MainShortTextFieldName).Value,
                 Author = this.GetAuthorName(dynamicContent.LastModifiedBy),
                 LastModified = dynamicContent.LastModified,
-                CanonicalUrl = dynamicContent.SystemUrl
+                CanonicalUrl = canonicalUrl
             };
         }
 

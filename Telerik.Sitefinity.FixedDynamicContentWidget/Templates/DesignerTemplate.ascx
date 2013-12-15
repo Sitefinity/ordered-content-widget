@@ -115,7 +115,7 @@
                                         <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                         <td>{{ item.Author }}</td>
                                         <td>
-                                            <a href="{{ item.CanonicalUrl }}">
+                                            <a href="{{ item.CanonicalUrl }}" ng-show="{{ item.CanonicalUrl && item.CanonicalUrl.length > 0 }}" target="_blank">
                                                 <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
                                             </a>
                                         </td>
@@ -167,7 +167,7 @@
                                         <td>{{ item.LastModified | date:'mediumDate' }}</td>
                                         <td>{{ item.Author }}</td>
                                         <td>
-                                            <a href="{{ item.CanonicalUrl }}">
+                                            <a href="{{ item.CanonicalUrl }}" ng-show="{{ item.CanonicalUrl && item.CanonicalUrl.length > 0 }}" target="_blank">
                                                 <asp:Literal runat="server" Text="<%$Resources:OrderedContentResources, View %>" />
                                             </a>
                                         </td>
