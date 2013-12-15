@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Telerik.Sitefinity.Web.Model;
 
 namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
 {
@@ -11,5 +10,6 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
         public int? Skip { get; set; }
         public int? Take { get; set; }
         public Guid[] SelectedContentIds { get; set; }
+        public string MainFieldStartsWith { get; set; }
     }
 }

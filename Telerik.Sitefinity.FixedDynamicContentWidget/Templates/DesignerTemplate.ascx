@@ -87,6 +87,7 @@
                                 ({{ selectedItems.length }})
                             </li>
                         </ul>
+                        <asp:TextBox runat="server" placeholder="<%$Resources:OrderedContentResources, NarrowByTyping %>" ng-model="mainFieldStartsWith"></asp:TextBox>
                         <div>
                             <table style="width: 500px;">
                                 <thead>

@@ -722,5 +722,20 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
             }
         }
 
+        /// <summary>
+        /// phrase: Narrow by typing
+        /// </summary>
+        [ResourceEntry("NarrowByTyping",
+            Value = "Narrow by typing",
+            Description = "phrase: Narrow by typing",
+            LastModified = "2013/12/15")]
+        public string NarrowByTyping
+        {
+            get
+            {
+                return this["NarrowByTyping"];
+            }
+        }
+
     }
 }

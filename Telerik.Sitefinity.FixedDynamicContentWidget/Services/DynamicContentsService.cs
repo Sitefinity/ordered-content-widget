@@ -46,7 +46,18 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
                 {
                     var converter = new JsonTypeConverter<QueryData>();
                     var queryData = (QueryData)converter.ConvertFromString(request.QueryData);
-                    filterExpression = DefinitionsHelper.GetFilterExpression(string.Empty, queryData);
+
+                    var startsWithFilter = string.Empty;
+                    if (string.IsNullOrEmpty(request.MainFieldStartsWith))
+                    {
+                        startsWithFilter = string.Format("{0}.StartsWith(\"{1}\")", dynamicType.MainShortTextFieldName, request.MainFieldStartsWith);
+                    }
+
+                    filterExpression = DefinitionsHelper.GetFilterExpression(startsWithFilter, queryData);
+                }
+                else if (!string.IsNullOrEmpty(request.MainFieldStartsWith))
+                {
+                    filterExpression = string.Format("{0}.StartsWith(\"{1}\")", dynamicType.MainShortTextFieldName, request.MainFieldStartsWith);
                 }
 
                 var query = manager.GetDataItems(type).Where(di => di.Status == ContentLifecycleStatus.Live);

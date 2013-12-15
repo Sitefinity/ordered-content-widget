@@ -132,6 +132,8 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         };
 
+        $scope.mainFieldStartsWith = null;
+
         /*
          * Finds the index of an item for a given id
          * within a specified collection.
@@ -304,6 +306,26 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             });
 
         }, true);
+
+        $scope.$watch('mainFieldStartsWith', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+
+                var typeId = $scope.selectedDynamicType.Id;
+
+                var queryData = filterSelector.get_queryData();
+                if (queryData.QueryItems.length > 0) {
+                    queryData = JSON.stringify(queryData);
+                } else {
+                    queryData = null;
+                }
+
+                DynamicContents.query({ id: typeId, queryData: queryData, mainFieldStartsWith: newValue }, function (data) {
+                    $scope.allItems = data.Items;
+                    $scope.allItemsVirtualCount = data.VirtualCount;
+                    initializePager();
+                });
+            };
+        });
 
         $scope.$watch('[controlDataLoaded, contentTypesLoaded]', function (newValue, oldValue) {
             if (newValue !== oldValue) {
