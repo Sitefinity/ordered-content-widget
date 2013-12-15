@@ -19,10 +19,12 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
             appHost.RegisterService<DynamicTypesService>();
             appHost.RegisterService<DynamicContentsService>();
             appHost.RegisterService<PageService>();
+            appHost.RegisterService<WidgetTemplateService>();
 
             appHost.Routes.Add<DynamicTypeRequest>("/fixeddynamiccontent/dynamictypes", "GET");
             appHost.Routes.Add<DynamicContentsRequest>("/fixeddynamiccontent/dynamiccontents/{TypeId}", "GET");
             appHost.Routes.Add<PageRequest>("/fixeddynamiccontent/page/{pageId}", "GET");
+            appHost.Routes.Add<WidgetTemplateRequest>("/fixeddynamiccontent/widgettemplates", "GET");
 
             JsConfig.DateHandler = JsonDateHandler.ISO8601;
         }

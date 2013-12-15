@@ -88,6 +88,9 @@
     <Compile Include="Services\PageRequest.cs" />
     <Compile Include="Services\PageResponse.cs" />
     <Compile Include="Services\PageService.cs" />
+    <Compile Include="Services\WidgetTemplateRequest.cs" />
+    <Compile Include="Services\WidgetTemplateResponse.cs" />
+    <Compile Include="Services\WidgetTemplateService.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,14 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\lib\sortable.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\DetailTemplate.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Templates\MasterTemplate.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

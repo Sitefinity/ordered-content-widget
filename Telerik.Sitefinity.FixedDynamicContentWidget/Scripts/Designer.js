@@ -24,12 +24,21 @@ designerApp.factory('Page', ['$resource',
     }
 ]);
 
+designerApp.factory('WidgetTemplate', ['$resource',
+    function ($resource) {
+        return $resource('/restapi/fixeddynamiccontent/widgettemplates', {}, {
+            query: { method: 'GET', isArray: true }
+        });
+    }
+]);
 
-var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 'Page', 
-    function ($scope, DynamicTypes, DynamicContents, Page) {
+var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTypes', 'DynamicContents', 'Page', 'WidgetTemplate', 
+    function ($scope, DynamicTypes, DynamicContents, Page, WidgetTemplate) {
 
         var pageSelector = null,
             filterSelector = null,
+            listTemplateControl = null,
+            singleItemTemplateControl = null,
             pagerPageSize = 20,
             pagerMaxPages = 10;
 
@@ -201,6 +210,29 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.totalPageSegments = Math.ceil(totalPages / pagerMaxPages);
         };
 
+        var initializeTemplateControls = function () {
+
+            // TODO: refactor master and template definitions into a function
+            var masterDefinition = $scope.controlData.ControlDefinition.Views.DynamicContentMasterView;
+            var detailDefinition = $scope.controlData.ControlDefinition.Views.DynamicContentDetailView;
+
+            WidgetTemplate.query({ dynamicTypeId: $scope.selectedDynamicType.Id, IsMaster: true }, function (data) {                
+                listTemplateControl.get_viewsList().clearListItems();
+                for (var i = 0; i < data.length; i++) {
+                    listTemplateControl.get_viewsList().addListItem(data[i].TemplateId, data[i].TemplateName);
+                    listTemplateControl.get_viewsList().set_value(masterDefinition.TemplateKey);
+                }
+            });
+
+            WidgetTemplate.query({ dynamicTypeId: $scope.selectedDynamicType.Id, IsMaster: false }, function (data) {
+                singleItemTemplateControl.get_viewsList().clearListItems();
+                for (var i = 0; i < data.length; i++) {
+                    singleItemTemplateControl.get_viewsList().addListItem(data[i].TemplateId, data[i].TemplateName);
+                    singleItemTemplateControl.get_viewsList().set_value(detailDefinition.TemplateKey);
+                }
+            });
+        };
+
         $scope.selectedDynamicType = "";
 
         $scope.selectAll = function () {
@@ -225,7 +257,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             $scope.isSelected(id) ? unselectItem(id) : selectItem(id);
         };
 
-        $scope.load = function (controlData, _pageSelector, _filterSelector) {
+        $scope.load = function (controlData, _pageSelector, _filterSelector, _listTemplateControl, _singleItemTemplateControl) {
 
             if (!pageSelector) {
                 pageSelector = _pageSelector;
@@ -234,6 +266,14 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
             if (!filterSelector) {
                 filterSelector = _filterSelector;
+            }
+
+            if (!listTemplateControl) {
+                listTemplateControl = _listTemplateControl;
+            }
+
+            if (!singleItemTemplateControl) {
+                singleItemTemplateControl = _singleItemTemplateControl;
             }
 
             $scope.controlData = controlData;
@@ -289,6 +329,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
                 $scope.allItems = data.Items;
                 $scope.allItemsVirtualCount = data.VirtualCount;
                 initializePager();
+                initializeTemplateControls();
             });
 
             // TODO: this is awful, but oh well...
@@ -428,7 +469,7 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
         this.get_singleItemTemplateControl()._getFieldControl('TemplateKey').set_value(detailDefinition.TemplateKey);
 
         var ctrl = angular.element($("[ng-controller='DesignerCtrl']")).scope();
-        ctrl.load(controlData, this.get_pageSelector(), this.get_filterSelector());
+        ctrl.load(controlData, this.get_pageSelector(), this.get_filterSelector(), this.get_listTemplateControl(), this.get_singleItemTemplateControl());
     },
 
     get_listTemplateControl: function() {

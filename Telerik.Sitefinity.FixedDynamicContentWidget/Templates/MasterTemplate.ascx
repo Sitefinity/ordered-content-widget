@@ -1,1 +1,0 @@
-﻿<h1>Master template</h1>

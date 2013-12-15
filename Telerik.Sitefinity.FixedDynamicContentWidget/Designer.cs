@@ -117,9 +117,9 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget
         /// <param name="container">The container.</param>
         protected override void InitializeControls(GenericContainer container)
         {
-            this.ListTemplates.DesignedMasterViewType = typeof(DynamicContentViewMaster).FullName;
+            //this.ListTemplates.DesignedMasterViewType = typeof(DynamicContentViewMaster).FullName;
             this.ListTemplates.WindowManager = this.RadWindowManager;
-            this.SingleItemTemplates.DesignedMasterViewType = typeof(DynamicContentViewDetail).FullName;
+            //this.SingleItemTemplates.DesignedMasterViewType = typeof(DynamicContentViewDetail).FullName;
             this.SingleItemTemplates.WindowManager = this.RadWindowManager;
 
             this.BuildFilterSelector();
