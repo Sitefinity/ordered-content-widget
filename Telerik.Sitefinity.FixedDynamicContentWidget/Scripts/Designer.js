@@ -325,6 +325,8 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
             var typeId = $scope.selectedDynamicType.Id;
             if (!(typeId && typeId.length > 0)) return;
 
+            $scope.selectedItems = [];
+
             DynamicContents.query({ id: typeId }, function (data) {
                 $scope.allItems = data.Items;
                 $scope.allItemsVirtualCount = data.VirtualCount;
@@ -427,6 +429,8 @@ Telerik.Sitefinity.FixedDynamicContentWidget.Designer.prototype = {
             }
 
             controlData.SelectedItems = JSON.stringify(selectedItems);
+        } else {
+            controlData.SelectedItems = [];
         }
 
         var masterDefinition = controlData.ControlDefinition.Views.DynamicContentMasterView;
