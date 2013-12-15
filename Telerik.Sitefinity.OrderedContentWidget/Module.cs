@@ -88,6 +88,11 @@ namespace Telerik.Sitefinity.OrderedContentWidget
             this.InstallCustomVirtualPaths(initializer);
         }
 
+		public override void Upgrade(SiteInitializer initializer, Version upgradeFrom)
+		{
+			// do nothing for now
+		}
+
         /// <summary>
         /// Gets the module config.
         /// </summary>

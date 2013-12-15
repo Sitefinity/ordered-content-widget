@@ -34,3 +34,5 @@ C:\SitefinityGitHub\ordered-content-widget\Telerik.Sitefinity.OrderedContentWidg
 C:\SitefinityGitHub\ordered-content-widget\Telerik.Sitefinity.OrderedContentWidget\obj\Debug\Telerik.Sitefinity.OrderedContentWidget.csprojResolveAssemblyReference.cache
 C:\SitefinityGitHub\ordered-content-widget\Telerik.Sitefinity.OrderedContentWidget\obj\Debug\Telerik.Sitefinity.OrderedContentWidget.dll
 C:\SitefinityGitHub\ordered-content-widget\Telerik.Sitefinity.OrderedContentWidget\obj\Debug\Telerik.Sitefinity.OrderedContentWidget.pdb
+C:\SitefinityGitHub\ordered-content-widget\Telerik.Sitefinity.OrderedContentWidget\bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll
+C:\SitefinityGitHub\ordered-content-widget\Telerik.Sitefinity.OrderedContentWidget\bin\Debug\Microsoft.IdentityModel.dll
