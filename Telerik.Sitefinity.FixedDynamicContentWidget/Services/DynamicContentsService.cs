@@ -93,7 +93,8 @@ namespace Telerik.Sitefinity.FixedDynamicContentWidget.Services
         private DynamicContentResponse ToResponse(DynamicContent dynamicContent, DynamicModuleType dynamicType)
         {
             var contentLocationService = SystemManager.GetContentLocationService();
-            var canonicalUrl = contentLocationService.GetItemDefaultLocation(dynamicContent).ItemAbsoluteUrl;
+            var contentLocation = contentLocationService.GetItemDefaultLocation(dynamicContent);
+            string canonicalUrl = contentLocation == null ? "" : contentLocation.ItemAbsoluteUrl;
 
             return new DynamicContentResponse()
             {
