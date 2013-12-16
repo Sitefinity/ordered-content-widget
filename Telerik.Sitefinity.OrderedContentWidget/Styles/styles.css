@@ -1,0 +1,25 @@
+﻿.sfPageSelectorWrp
+{
+    background-color: #f1f1f1;
+    position: relative;
+    margin-bottom: -50px;
+    margin-top: -35px;
+}
+.sfSelectorDialog .sfSelectorGridWrapper
+{
+    height: 250px;
+    max-height: none;
+}
+.sfSelectorGridWrapper .k-grid .sfCheckBoxCol
+{
+    width: 25px;
+    text-align: right;
+}
+.sfSelectorGridWrapper .sfCheckBoxCol .sfDragPoint
+{
+    vertical-align: top;
+    padding: 0;
+    width: 5px;
+    height: 11px;
+    background-position: 0 -3000px;
+}

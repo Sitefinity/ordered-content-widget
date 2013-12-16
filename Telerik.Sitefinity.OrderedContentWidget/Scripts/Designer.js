@@ -119,6 +119,7 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
             if ($scope.showPageSelector) return false;
 
+
             return true;
         };
 
@@ -126,7 +127,10 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
 
         $scope.detailsPage = null;
 
-        $scope.showFilters = false;
+        $scope.showFilters = function () {
+            $("#filtersWrp").toggleClass("sfExpandedSection");
+            dialogBase.resizeToContent();
+        };
 
         $scope.applyFilter = function () {
 
@@ -147,6 +151,11 @@ var designerCtrl = designerApp.controller('DesignerCtrl', ['$scope', 'DynamicTyp
         $scope.mainFieldStartsWith = null;
 
         $scope.isSelectAllChecked = false;
+
+        $scope.resizeMainDlg = function () {
+            if (dialogBase)
+                dialogBase.resizeToContent();
+        };
 
         /*
          * Finds the index of an item for a given id
@@ -406,8 +415,13 @@ Telerik.Sitefinity.OrderedContentWidget.Designer.prototype = {
     /* ************************* set up and tear down ************************* */
     initialize: function () {
 
-        $('#tabstrip').kendoTabStrip();
-        $('#all-selected-tabstrip').kendoTabStrip();
+        $('#tabstrip').kendoTabStrip({
+            animation: false,
+            activate: function () {
+                dialogBase.resizeToContent();
+            }
+        });
+        $('#all-selected-tabstrip').kendoTabStrip({ animation: false });
 
         var controlData = this.get_controlData();
 

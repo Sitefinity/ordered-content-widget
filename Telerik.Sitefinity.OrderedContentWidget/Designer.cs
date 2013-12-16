@@ -224,6 +224,15 @@ namespace Telerik.Sitefinity.OrderedContentWidget
             return scripts;
         }
 
+        protected override HtmlTextWriterTag TagKey
+        {
+            get
+            {
+                //we use div wrapper tag to make easier common styling
+                return HtmlTextWriterTag.Div;
+            }
+        }
+
         #endregion
 
         #region Private fields and constants
