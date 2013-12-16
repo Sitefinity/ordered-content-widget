@@ -37,3 +37,4 @@ using System.Web.UI;
 
 [assembly: WebResource(Telerik.Sitefinity.OrderedContentWidget.Designer.designerScript, "application/x-javascript")]
 [assembly: WebResource(Telerik.Sitefinity.OrderedContentWidget.Designer.sortableScript, "application/x-javascript")]
+[assembly: WebResource("Telerik.Sitefinity.OrderedContentWidget.Styles.styles.css", "text/css")]
