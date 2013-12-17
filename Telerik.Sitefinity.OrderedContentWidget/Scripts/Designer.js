@@ -203,6 +203,13 @@
                 });
             }
 
+            var isItemSelected = function (item) {
+                for (var i = 0; i < $scope.selectedItems.length; i++) {
+                    if (item.Id === $scope.selectedItems[i].Id) return true;
+                }
+                return false;
+            };
+
             /**
              * Configures the pager for the all items grid. The pager is configured to show
              * at most 10 pages at the moment. Should there be more pages, pager will introduce
@@ -252,7 +259,7 @@
 
             $scope.selectAll = function () {
                 for (var i = 0; i < $scope.allItems.length; i++) {
-                    if ($scope.selectedItems.indexOf($scope.allItems[i]) > -1) {
+                    if (isItemSelected($scope.allItems[i])) {
                         continue;
                     }
                     $scope.selectedItems.push($scope.allItems[i]);
