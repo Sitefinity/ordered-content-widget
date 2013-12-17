@@ -14,12 +14,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'DesignerSpec.js',
+      'lib/angular.min.js',
+      'lib/angular-resource.min.js',
+      'lib/angular-mocks.js',
+      'lib/jquery.min.js',
+      'lib/jquery-ui.min.js',
+      'lib/angular-ui.min.js',
+      'lib/sortable.js',
       'lib/MicrosoftAjax.js',
       'lib/IControlDesigner.js',
-      'lib/*.js',
       'lib/ControlDesignerBase.js',
-      '../Telerik.Sitefinity.OrderedContentWidget/Scripts/*.js'
+      '../Telerik.Sitefinity.OrderedContentWidget/Scripts/*.js',
+      '../Telerik.Sitefinity.OrderedContentWidget/Scripts/lib/*.js',
+      'DesignerSpec.js'
     ],
 
 
