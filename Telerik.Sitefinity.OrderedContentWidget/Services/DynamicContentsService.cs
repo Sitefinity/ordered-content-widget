@@ -32,10 +32,14 @@ namespace Telerik.Sitefinity.OrderedContentWidget.Services
             if (request.SelectedContentIds != null)
             {
                 virtualCount = request.SelectedContentIds.Length;
+                var selectedItems = manager.GetDataItems(type).Where(di => request.SelectedContentIds.Contains(di.Id));
                 foreach (var id in request.SelectedContentIds)
                 {
-                    var item = manager.GetDataItem(type, id);
-                    dynamicContentList.Add(this.ToResponse(item, dynamicType));
+                    foreach (var item in selectedItems)
+                    {
+                        if (id == item.Id)
+                            dynamicContentList.Add(this.ToResponse(item, dynamicType));
+                    }
                 }
             }
             else
