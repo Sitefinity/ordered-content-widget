@@ -242,16 +242,16 @@
                     listTemplateControl.get_viewsList().clearListItems();
                     for (var i = 0; i < data.length; i++) {
                         listTemplateControl.get_viewsList().addListItem(data[i].TemplateId, data[i].TemplateName);
-                        listTemplateControl.get_viewsList().set_value(masterDefinition.TemplateKey);
                     }
+                    listTemplateControl.get_viewsList().set_value(masterDefinition.TemplateKey);
                 });
 
                 WidgetTemplate.query({ dynamicTypeId: $scope.selectedDynamicType.Id, IsMaster: false }, function (data) {
                     singleItemTemplateControl.get_viewsList().clearListItems();
                     for (var i = 0; i < data.length; i++) {
                         singleItemTemplateControl.get_viewsList().addListItem(data[i].TemplateId, data[i].TemplateName);
-                        singleItemTemplateControl.get_viewsList().set_value(detailDefinition.TemplateKey);
                     }
+                    singleItemTemplateControl.get_viewsList().set_value(detailDefinition.TemplateKey);
                 });
             };
 
