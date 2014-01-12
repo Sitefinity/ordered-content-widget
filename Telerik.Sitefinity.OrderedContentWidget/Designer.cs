@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ControlDesign;
 using Telerik.Web.UI;
@@ -141,10 +143,15 @@ namespace Telerik.Sitefinity.OrderedContentWidget
             // taxonomies
             var taxonomyManager = TaxonomyManager.GetManager();
 
+            var systemTaxonomies = new Guid[] { SiteInitializer.PageTemplatesTaxonomyId };
+
             var taxonomies = taxonomyManager.GetTaxonomies<Taxonomy>();
 
             foreach (var taxonomy in taxonomies)
             {
+                if (systemTaxonomies.Contains(taxonomy.Id))
+                    continue;
+
                 var taxonomyItem = new FilterSelectorItem()
                 {
                     Text = string.Format(Res.Get<OrderedContentResources>().BySomething, taxonomy.Title),
@@ -155,11 +162,22 @@ namespace Telerik.Sitefinity.OrderedContentWidget
                     QueryFieldName = taxonomy.TaxonName,
                     QueryFieldType = typeof(Guid).FullName
                 };
+
+                if (taxonomyItem.QueryDataName == "Category")
+                {
+                    taxonomyItem.QueryDataName = "Categories";
+                }
+                else if (taxonomyItem.QueryDataName == "Department")
+                {
+                    taxonomyItem.QueryDataName = "Departments";
+                }
+
                 if (taxonomy.GetType() == typeof(FlatTaxonomy))
                 {
                     taxonomyItem.SelectorResultView = new GenericTemplate(new FlatTaxonSelectorResultView()
                     {
                         WebServiceUrl = "~/Sitefinity/Services/Taxonomies/FlatTaxon.svc",
+                        TaxonomyId = taxonomy.Id,
                         AllowMultipleSelection = true
                     });
                 }
@@ -168,7 +186,9 @@ namespace Telerik.Sitefinity.OrderedContentWidget
                     taxonomyItem.SelectorResultView = new GenericTemplate(new HierarchicalTaxonSelectorResultView()
                     {
                         WebServiceUrl = "~/Sitefinity/Services/Taxonomies/HierarchicalTaxon.svc",
-                        AllowMultipleSelection = true
+                        TaxonomyId = taxonomy.Id,
+                        AllowMultipleSelection = true,
+                        HierarchicalTreeRootBindModeEnabled = false
                     });
                 }
 

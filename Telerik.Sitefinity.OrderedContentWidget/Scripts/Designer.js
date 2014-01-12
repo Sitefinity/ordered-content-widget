@@ -448,7 +448,10 @@ Telerik.Sitefinity.OrderedContentWidget.Designer.prototype = {
         });
         $('#all-selected-tabstrip').kendoTabStrip({ animation: false });
 
+        Telerik.Sitefinity.OrderedContentWidget.Designer.callBaseMethod(this, 'initialize');
+
         var controlData = this.get_controlData();
+
 
         this.get_listTemplateControl().set_parentDesigner(this);
         this.get_listTemplateControl().set_currentView(controlData.ControlDefinition.Views.DynamicContentMasterView);
@@ -458,14 +461,14 @@ Telerik.Sitefinity.OrderedContentWidget.Designer.prototype = {
 
         this._filterSelector.set_queryData(new Telerik.Sitefinity.Web.UI.QueryData());
 
-        Telerik.Sitefinity.OrderedContentWidget.Designer.callBaseMethod(this, 'initialize');
+        
     },
     dispose: function () {
         Telerik.Sitefinity.OrderedContentWidget.Designer.callBaseMethod(this, 'dispose');
     },
 
     /* ************************* public methods ************************* */
-    // forces the designer to apply the changes on UI to the cotnrol data
+    // forces the designer to apply the changes on UI to the control data
     applyChanges: function () {
         var controlData = this.get_controlData();
        

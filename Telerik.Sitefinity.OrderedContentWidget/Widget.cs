@@ -51,8 +51,6 @@ namespace Telerik.Sitefinity.OrderedContentWidget
                 this.MasterViewControl.SourceItemsIds = this.RelatedItemsIds;
             }
 
-            //this.MasterViewDefinition.DetailsPageId
-
             switch (this.SortMode)
             {
                 case SortModes.NewestFirst:
@@ -69,12 +67,20 @@ namespace Telerik.Sitefinity.OrderedContentWidget
                     break;
                 case SortModes.Manual:
                     this.MasterViewDefinition.SortExpression = "";
-                    var items = new List<DynamicContent>();
+
+                    var sortedItems = new List<DynamicContent>();
+                    var selectedItems = this.DynamicManager.GetDataItems(this.DynamicContentType)
+                                                           .Where(d => this.SelectedItems.Contains(d.Id));
+
                     foreach (var itemId in this.SelectedItems)
                     {
-                        items.Add(this.DynamicManager.GetDataItem(this.DynamicContentType, itemId));
+                        var selectedItem = selectedItems.Where(si => si.Id == itemId).SingleOrDefault();
+                        if(selectedItem != null)
+                        {
+                            sortedItems.Add(selectedItem);
+                        }
                     }
-                    this.MasterViewControl.DataSource = items.AsQueryable();
+                    this.MasterViewControl.DataSource = sortedItems.AsQueryable();
                     break;
             }
 
